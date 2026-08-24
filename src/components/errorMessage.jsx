@@ -10,8 +10,7 @@ function ErrorMessage({ message }) {
         borderRadius: "8px",
         marginBottom: "16px",
         border: "1px solid #FCA5A5",
-      }}
-    >
+      }}>
       {message}
     </div>
   );
