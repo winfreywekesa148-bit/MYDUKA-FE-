@@ -1,10 +1,17 @@
-function Clerk() {
-  return (
-    <div>
-      <h1>Clerk Dashboard</h1>
-      <p>Welcome to MyDuka.</p>
-    </div>
-  );
-}
+import { useState } from "react";
+import ErrorMessage from "../../components/errorMessage";
 
-export default Clerk;
+function Records() {
+  const [formData, setFormData] = useState({
+    product: "",
+    quantity: "",
+    paymentStatus: "unpaid",
+    buyingPrice: "",
+    sellingPrice: "",
+    spoilt: "",
+  });
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  
