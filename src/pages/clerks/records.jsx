@@ -61,7 +61,41 @@ function Records() {
           <input type="text" name="product"
             value={formData.product}
             onChange={handleChange}
-            style={{ width: "100%", padding: "10px" }}
-          />
+            style={{ width: "100%", padding: "10px" }}/>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <label>Quantity Received</label>
+          <input type="number" name="quantity"
+            value={formData.quantity}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "10px" }}/>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <label>Payment Status</label>
+          <select name="paymentStatus"
+            value={formData.paymentStatus}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "10px" }} >
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+          </select>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <label>Buying Price</label>
+          <input type="number" name="buyingPrice"
+            value={formData.buyingPrice}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "10px" }}/>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <label>Selling Price</label>
+          <input type="number" name="sellingPrice"
+            value={formData.sellingPrice}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "10px" }}/>
         </div>
 
