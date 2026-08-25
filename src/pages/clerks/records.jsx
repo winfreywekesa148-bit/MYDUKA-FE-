@@ -37,4 +37,31 @@ function Records() {
       paymentStatus: "unpaid", buyingPrice: "",
       sellingPrice: "", spoilt: "", });}
 
- 
+     return (
+    <div style={{ padding: "24px", maxWidth: "600px" }}>
+      <h1>Record Inventory</h1>
+      <p>Enter the details of newly received products.</p>
+      <ErrorMessage message={error} />
+
+      {success && (
+        <div style={{
+            background: "#DCFCE7",
+            color: "#166534",
+            padding: "12px",
+            borderRadius: "8px",
+            marginBottom: "16px",
+          }} >
+          {success}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: "16px" }}>
+          <label>Product Name</label>
+          <input type="text" name="product"
+            value={formData.product}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "10px" }}
+          />
+        </div>
+
