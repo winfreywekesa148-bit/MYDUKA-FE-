@@ -1,8 +1,17 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ClerkDashboard() {
-  const [stats] = useState({ received: 245, stock: 180,
+  const [stats, setStats] = useState({ received: 245, stock: 180,
     spoilt: 12, unpaid: 20,});
+    const navigate = useNavigate();
+
+    useEffect(() => {fetch("http://127.0.0.1:5000/clerk/dashboard")
+    .then((response) => response.json())
+    .then((data) => setStats(data))
+    .catch((error) => console.error(error));
+     }, []);
+
 
   return (
     <div style={{ padding: "24px" }}>
@@ -36,11 +45,21 @@ function ClerkDashboard() {
       </div>
 
       <div style={{ marginTop: "32px" }}>
-        <h2>Quick Actions</h2>
+     <h2>Quick Actions</h2>
 
-        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-          <button style={buttonStyle}>Record Inventory</button>
-          <button style={buttonStyle}>Request Supply</button>
+  <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+    <button style={buttonStyle}
+      onClick={() => navigate("/clerk/records")}>
+      Record Inventory </button>
+
+    <button style={buttonStyle}
+      onClick={() => navigate("/clerk/supplyreq")}>
+      Request Supply</button>
+
+    <button style={buttonStyle}
+      onClick={() => navigate("/clerk/inventory")}>
+      View Inventory</button>
+ 
         </div>
       </div>
     </div>
@@ -54,5 +73,3 @@ const buttonStyle = {padding: "12px 18px",
   border: "none",borderRadius: "8px",
   background: "#2563EB",
   color: "white",cursor: "pointer",};
-
-export default ClerkDashboard;

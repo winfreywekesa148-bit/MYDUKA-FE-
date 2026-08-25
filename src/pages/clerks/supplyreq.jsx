@@ -1,10 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ErrorMessage from "../../components/errorMessage";
+import { useNavigate } from "react-router-dom";
 
 function SupplyReq() {
   const [product, setProduct] = useState("");
   const [quantity, setQuantity] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const [requests, setRequests] = useState([
     { id: 1,  product: "Rice",
@@ -69,6 +71,12 @@ function SupplyReq() {
             onChange={(e) => setQuantity(e.target.value)}
             style={{ width: "100%", padding: "10px" }}/>
         </div>
+        <button onClick={() => navigate("/clerk")}
+            style={{ background: "#6B7280",
+            color: "white", border: "none",
+            padding: "10px 16px", borderRadius: "8px",
+            cursor: "pointer", marginRight: "12px",}} >
+            Back to Dashboard</button>
 
          <button type="submit"
           style={{ background: "#2563EB",
@@ -92,6 +100,14 @@ function SupplyReq() {
               <h3>{request.product}</h3>
               <p>Quantity: {request.quantity}</p>
             </div>
+
+            <button onClick={() => {
+              setRequests(requests.filter((r) => r.id !== request.id));
+            }} style={{ background: "#DC2626",
+              color: "white", border: "none",
+              padding: "10px 16px", borderRadius: "8px",
+              cursor: "pointer",}} >
+              Delete</button>
 
             <span
               style={{

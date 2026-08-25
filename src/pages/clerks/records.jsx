@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ErrorMessage from "../../components/errorMessage";
+import { useNavigate } from "react-router-dom";
 
 function Records() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ function Records() {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -113,6 +115,16 @@ function Records() {
             padding: "12px 20px",
             borderRadius: "8px",cursor: "pointer",
           }}> Save Record</button>
+
+          <button onClick={() => navigate("/clerk")}
+           style={{background: "#6B7280",
+            color: "white", border: "none",
+            padding: "10px 16px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            marginBottom: "20px",}}>
+            Back to Clerk Dashboard
+        </button>
       </form>
     </div>
   );}
