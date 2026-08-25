@@ -99,3 +99,23 @@ function Records() {
             style={{ width: "100%", padding: "10px" }}/>
         </div>
 
+        <div style={{ marginBottom: "20px" }}>
+          <label>Spoilt Items</label>
+          <input type="number" name="spoilt"
+            value={formData.spoilt}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "10px" }}/>
+        </div>
+
+        <button type="submit"
+          style={{ background: "#2563EB",
+            color: "white",  border: "none",
+            padding: "12px 20px",
+            borderRadius: "8px",cursor: "pointer",
+          }}> Save Record</button>
+      </form>
+    </div>
+  );}
+
+export default Records;
+
