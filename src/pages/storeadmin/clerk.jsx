@@ -50,4 +50,20 @@ function Records() {
         </div>
       )}
 
-      
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: "15px" }}>
+          <label>Product Name</label>
+          <input type="text" name="product"
+            value={formData.product}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "8px" }} />
+        </div>
+
+        <div style={{ marginBottom: "15px" }}>
+          <label>Quantity Received</label>
+          <input type="number" name="quantity"
+            value={formData.quantity}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "8px" }} />
+        </div>
+ 
