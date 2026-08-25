@@ -69,3 +69,28 @@ function SupplyReq() {
             onChange={(e) => setQuantity(e.target.value)}
             style={{ width: "100%", padding: "10px" }}/>
         </div>
+
+         <button type="submit"
+          style={{ background: "#2563EB",
+            color: "white", border: "none",
+            padding: "12px 20px", borderRadius: "8px",
+            cursor: "pointer", }} >
+          Send Request </button>
+      </form>
+
+      <div style={{ marginTop: "40px" }}>
+        <h2>Previous Requests</h2>
+
+        {requests.map((request) => (
+          <div key={request.id}
+            style={{ border: "1px solid #E5E7EB",
+              borderRadius: "10px", padding: "16px",
+              marginBottom: "14px", display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",}} >
+            <div>
+              <h3>{request.product}</h3>
+              <p>Quantity: {request.quantity}</p>
+            </div>
+
+            
