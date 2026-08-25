@@ -15,8 +15,7 @@ function Records() {
     const { name, value } = event.target;
 
     setFormData((prev) => ({ ...prev,
-      [name]: value,
-    }));
+      [name]: value,}));
   }
 
   function handleSubmit(event) {
@@ -30,7 +29,25 @@ function Records() {
 
     setError("");
     setSuccess("Inventory record saved successfully.");
-    console.log(formData);
-  }
+    console.log(formData); }
 
-  
+  return (
+    <div style={{ padding: "24px", maxWidth: "600px" }}>
+      <h1>Record Inventory</h1>
+
+      <ErrorMessage message={error} />
+
+      {success && (
+        <div
+          style={{
+            background: "#DCFCE7",
+            color: "#166534",
+            padding: "12px",
+            borderRadius: "8px",
+            marginBottom: "16px",
+          }}>
+          {success}
+        </div>
+      )}
+
+      
