@@ -1,97 +1,27 @@
 import { useState } from "react";
+import DeleteButton from "../../components/delete_button";
 import ErrorMessage from "../../components/errorMessage";
 
-function Records() {
-  const [formData, setFormData] = useState({
-    product: "",  quantity: "",
-    paymentStatus: "unpaid",  buyingPrice: "",
-    sellingPrice: "",  spoilt: "",
-  });
-
+function Clerk() {
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+  const [clerks, setClerks] = useState([
+    { id: 1, name: "Joel", status: "Active" },
+    { id: 2, name: "Mary", status: "Active" },
+    { id: 3, name: "James", status: "Inactive" },
+  ]);
+  const [search, setSearch] = useState("");
 
-    setFormData((prev) => ({ ...prev,
-      [name]: value,}));
-  }
+  function handleDelete(id) {
+    setClerks(clerks.filter((clerk) => clerk.id !== id));}
 
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    if (!formData.product || !formData.quantity) {
-      setError("Product name and quantity are required.");
-      setSuccess("");
-      return;
-    }
-
-    setError("");
-    setSuccess("Inventory record saved successfully.");
-    console.log(formData); }
+  const filteredClerks = clerks.filter((clerk) =>
+    clerk.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div style={{ padding: "24px", maxWidth: "600px" }}>
-      <h1>Record Inventory</h1>
+    <div style={{ padding: "24px" }}>
+      <h1>Clerk Management</h1>
 
       <ErrorMessage message={error} />
 
-      {success && (
-        <div
-          style={{
-            background: "#DCFCE7",
-            color: "#166534",
-            padding: "12px",
-            borderRadius: "8px",
-            marginBottom: "16px",
-          }}>
-          {success}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "15px" }}>
-          <label>Product Name</label>
-          <input type="text" name="product"
-            value={formData.product}
-            onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }} />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Quantity Received</label>
-          <input type="number" name="quantity"
-            value={formData.quantity}
-            onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }} />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Payment Status</label>
-          <select name="paymentStatus"
-            value={formData.paymentStatus}
-            onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }} >
-            <option value="paid">Paid</option>
-            <option value="unpaid">Unpaid</option>
-          </select>
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Buying Price</label>
-          <input type="number" name="buyingPrice"
-            value={formData.buyingPrice}
-            onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }} />
-        </div>
-
-        <div style={{ marginBottom: "15px" }}>
-          <label>Selling Price</label>
-          <input type="number" name="sellingPrice"
-            value={formData.sellingPrice}
-            onChange={handleChange}
-            style={{ width: "100%", padding: "8px" }} />
-        </div>
-
-        
+     
