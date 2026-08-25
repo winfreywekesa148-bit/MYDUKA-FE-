@@ -93,4 +93,19 @@ function SupplyReq() {
               <p>Quantity: {request.quantity}</p>
             </div>
 
-            
+            <span
+              style={{
+                ...getStatusStyle(request.status),
+                padding: "8px 12px",
+                borderRadius: "20px",
+                fontWeight: "bold",
+              }} >
+              {request.status}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );}
+
+export default SupplyReq;
