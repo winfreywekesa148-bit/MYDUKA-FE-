@@ -66,4 +66,32 @@ function Records() {
             onChange={handleChange}
             style={{ width: "100%", padding: "8px" }} />
         </div>
- 
+
+        <div style={{ marginBottom: "15px" }}>
+          <label>Payment Status</label>
+          <select name="paymentStatus"
+            value={formData.paymentStatus}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "8px" }} >
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+          </select>
+        </div>
+
+        <div style={{ marginBottom: "15px" }}>
+          <label>Buying Price</label>
+          <input type="number" name="buyingPrice"
+            value={formData.buyingPrice}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "8px" }} />
+        </div>
+
+        <div style={{ marginBottom: "15px" }}>
+          <label>Selling Price</label>
+          <input type="number" name="sellingPrice"
+            value={formData.sellingPrice}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "8px" }} />
+        </div>
+
+        
