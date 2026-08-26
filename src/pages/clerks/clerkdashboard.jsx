@@ -5,12 +5,27 @@ function ClerkDashboard() {
   const [stats, setStats] = useState({ received: 245, stock: 180,
     spoilt: 12, unpaid: 20,});
     const navigate = useNavigate();
+    const [records, setRecords] = useState([]);
 
-    useEffect(() => {fetch("http://127.0.0.1:5000/clerk/dashboard")
-    .then((response) => response.json())
-    .then((data) => setStats(data))
-    .catch((error) => console.error(error));
-     }, []);
+   useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  Promise.all([
+    fetch("http://127.0.0.1:5000/clerk/dashboard", {
+      headers: {Authorization: `Bearer ${token}`,},
+    }).then((res) => res.json()),
+
+    fetch("http://127.0.0.1:5000/records", {
+      headers: {Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json()),
+  ])
+    .then(([dashboardData, recordsData]) => {
+      setStats(dashboardData);
+      setRecords(recordsData);
+    })
+    .catch(console.error);
+}, []);
 
 
   return (
@@ -47,6 +62,33 @@ function ClerkDashboard() {
       <div style={{ marginTop: "32px" }}>
      <h2>Quick Actions</h2>
 
+      <div style={{ marginTop: "40px" }}>
+  <h2>Recent Inventory Records</h2>
+
+  {records.length === 0 ? (
+    <p>No records yet.</p>
+  ) : (
+    records.slice(0, 5).map((record) => (
+      <div key={record.record_id} style={recordCard}>
+        <div>
+          <h3>Product #{record.product_id}</h3>
+
+          <p>Received: {record.items_received}</p>
+          <p>Stock: {record.items_in_stock}</p>
+          <p>Spoilt: {record.items_spoilt}</p>
+          <p>Buying: KSh {record.buying_price}</p>
+          <p>Selling: KSh {record.selling_price}</p>
+          <p>Status: {record.payment_status}</p>
+        </div>
+
+        <button style={buttonStyle}
+          onClick={() => navigate(`clerk/record/${record.record_id}`)}>
+          Edit </button>
+      </div>
+    ))
+  )}
+</div>
+
   <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
     <button style={buttonStyle}
       onClick={() => navigate("/clerk/records")}>
@@ -73,3 +115,5 @@ const buttonStyle = {padding: "12px 18px",
   border: "none",borderRadius: "8px",
   background: "#2563EB",
   color: "white",cursor: "pointer",};
+
+export default ClerkDashboard;
