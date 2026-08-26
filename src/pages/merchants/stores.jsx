@@ -2,8 +2,8 @@ import React from "react";
 
 function Stores() {
   const stores = [
-    { id: 1, name: "Main Store", location: "Nairobi" },
-    { id: 2, name: "Branch Store", location: "Kiambu" },
+    { id: 1, name: "store 1 ", location: "Nairobi" },
+    { id: 2, name: "Store 2", location: "Kiambu" },
   ];
 
   return (
