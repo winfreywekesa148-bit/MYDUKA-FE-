@@ -1,89 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../config";
-import Records from "./records";
 
 function Inventory() {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
+  const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`${API_URL}/records`)
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((error) => console.error(error));
+    let active = true;
+    const loadInventory = async () => {
+      try {
+        const response = await fetch(`${API_URL}/records`);
+        if (!response.ok) throw new Error("Unable to load inventory.");
+        const data = await response.json();
+        if (active) {
+          setRecords(Array.isArray(data) ? data : []);
+          setError("");
+        }
+      } catch (loadError) {
+        if (active) setError(loadError.message);
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+
+    loadInventory();
+    const intervalId = window.setInterval(loadInventory, 30000);
+    return () => {
+      active = false;
+      window.clearInterval(intervalId);
+    };
   }, []);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  if (loading) return <p>Loading inventory...</p>;
 
   return (
     <div style={{ padding: "24px" }}>
-      <button onClick={() => navigate("/clerk")}
-        style={buttonStyle}>
-        Back to Dashboard </button>
-
+      <button onClick={() => navigate("/clerk")} style={backButtonStyle}>Back to Dashboard</button>
       <h1>Inventory</h1>
-
-      {products.length === 0 ? (
-        <p>No products available.</p>
-      ) : (
-        products.map((record) => (
-          <div key={record.record_id} style={cardStyle}>
-            <div>
-              <h3>{record.name}</h3>
-              <p>Product id: {record.product_id}</p>
-              <p>Selling Price: KSh {record.selling_price}</p>
-              <p>Received: {record.items_received}</p>
-              <p>In Stock: {record.items_in_stock}</p>
-             <p>Spoilt: {record.items_spoilt}</p>
-             <p>Buying Price: KSh {record.buying_price}</p>
-             <p>Selling Price: KSh {record.selling_price}</p>
-             <p>Payment: {record.payment_status}</p>
-           
-            <div key={record.product_id} style={cardStyle}>
-
-            </div>
-         </div>
-
-            <button style={editButton}
-              onClick={() => navigate(`/clerk/edit/${record.record_id}`)}>
-              Edit</button>
+      <p>Live inventory records refresh automatically every 30 seconds.</p>
+      {error && <p role="alert">{error}</p>}
+      {!error && records.length === 0 ? <p>No inventory records available.</p> : records.map((record) => (
+        <article key={record.record_id} style={cardStyle}>
+          <div>
+            <h2>{record.product_name || `Product #${record.product_id}`}</h2>
+            <p>Product ID: {record.product_id}</p>
+            <p>Supplier: {record.supplier_name || `Supplier #${record.supplier_id}`}</p>
+            <p>Supplier ID: {record.supplier_id}</p>
+            <p>Received: {record.items_received} · In stock: {record.items_in_stock} · Spoilt: {record.items_spoilt}</p>
+            <p>Buying price: KSh {record.buying_price} · Selling price: KSh {record.selling_price}</p>
+            <p>Payment status: {record.payment_status}</p>
+            <small>Recorded: {record.created_at ? new Date(record.created_at).toLocaleString() : "Not available"}</small>
           </div>
-        ))
-      )}
+          <button style={editButton} onClick={() => navigate(`/clerk/edit/${record.record_id}`)}>Edit</button>
+        </article>
+      ))}
     </div>
-  );}
+  );
+}
 
-const cardStyle = {display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  border: "1px solid #E5E7EB",
-  borderRadius: "10px",
-  padding: "16px",
-  marginBottom: "16px",
-};
-
-const buttonStyle = {background: "#6B7280",
-  color: "white",
-  border: "none",
-  padding: "10px 16px",
-  borderRadius: "8px",
-  cursor: "pointer",
-  marginBottom: "20px",
-};
-
-const editButton = {background: "#2563EB",
-  color: "white",
-  border: "none",
-  padding: "10px 16px",
-  borderRadius: "8px",
-  cursor: "pointer",
-};
+const cardStyle = { display: "flex", justifyContent: "space-between", alignItems: "center", border: "1px solid #E5E7EB", borderRadius: "10px", padding: "16px", marginBottom: "16px" };
+const backButtonStyle = { background: "#6B7280", color: "white", border: "none", padding: "10px 16px", borderRadius: "8px", cursor: "pointer", marginBottom: "20px" };
+const editButton = { background: "#2563EB", color: "white", border: "none", padding: "10px 16px", borderRadius: "8px", cursor: "pointer" };
 
 export default Inventory;
