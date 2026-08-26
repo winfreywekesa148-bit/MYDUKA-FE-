@@ -2,7 +2,9 @@ import {
   PieChart,
   Pie,
   Tooltip,
-  Legend
+  Legend,
+  ResponsiveContainer,
+  Cell
 } from "recharts";
 
 const data = [
@@ -18,6 +20,19 @@ const data = [
   { name: "Beverages", value: 75 }
 
 ];
+// colors for the pie chart segments
+const colors = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#8884d8",
+  "#82ca9d",
+  "#ffc658",
+  "#ff6b6b",
+  "#4ecdc4",
+  "#45b7d1"
+];
 
 function ProductPieChart() {
   return (
@@ -32,9 +47,13 @@ function ProductPieChart() {
         cx="50%"
         cy="50%"
         outerRadius={100}
-        fill="#09fb3d"
         label
-      />
+      >
+        {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+          ))}
+        label
+      </Pie>
       <Tooltip />
       <Legend />
     </PieChart>
