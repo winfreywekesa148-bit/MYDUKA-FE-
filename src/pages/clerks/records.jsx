@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import ErrorMessage from "../../components/errorMessage";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../config";
 
 function Records() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    product: "", quantity: "",
+    product: "", quantity: "", supplierID: "",
     paymentStatus: "unpaid",
     buyingPrice: "",sellingPrice: "", 
     spoilt: "", clerkID: "", storeID: "", adminID: "",});
@@ -31,7 +32,7 @@ function Records() {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/records", {
+      const response = await fetch(`${API_URL}/records`, {
         method: "POST",
         headers: { "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,},
@@ -40,6 +41,7 @@ function Records() {
           clerk_id: Number(formData.clerkID), 
           items_received: Number(formData.quantity),
           items_in_stock: Number(formData.quantity),
+          supplier_id: Number(formData.supplierID),
           items_spoilt: Number(formData.spoilt || 0),
           buying_price: Number(formData.buyingPrice),
           selling_price: Number(formData.sellingPrice),
@@ -58,7 +60,7 @@ function Records() {
       setSuccess("Record added successfully.");
       setError("");
 
-      setFormData({product: "", quantity: "",
+      setFormData({product: "", quantity: "", supplierID: "",
         paymentStatus: "unpaid", buyingPrice: "",
         sellingPrice: "", spoilt: "", clerkID: "", storeID: "", adminID: "",});
 
@@ -125,7 +127,12 @@ const inputStyle = {width: "100%", padding: "10px",
         <input type="number" name="adminID"
           value={formData.adminID} onChange={handleChange}
           placeholder="Enter admin ID" style={inputStyle}/>
-
+        
+        <label style={labelStyle}>Supplier ID</label>
+        <input type="number" name="supplierID"
+          value={formData.supplierID} onChange={handleChange}
+          placeholder="Enter supplier ID" required style={inputStyle}/>
+       
         {/* Quantity */}
         <label style={labelStyle}>Quantity Received</label>
         <input type="number" name="quantity"
