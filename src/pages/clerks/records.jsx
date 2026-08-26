@@ -1,187 +1,67 @@
-import React, { useState } from "react";
-import ErrorMessage from "../../components/errorMessage";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../config";
 
+const initialForm = { clerk_name: "", product_name: "", supplier_name: "", store_name: "", items_received: "", items_in_stock: "", items_spoilt: "0", buying_price: "", selling_price: "", payment_status: "unpaid" };
+
 function Records() {
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    product: "", quantity: "", supplierID: "",
-    paymentStatus: "unpaid",
-    buyingPrice: "",sellingPrice: "", 
-    spoilt: "", clerkID: "", storeID: "", adminID: "",});
-
+  const [form, setForm] = useState(initialForm);
+  const [options, setOptions] = useState({ clerks: [], stores: [] });
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [loadingOptions, setLoadingOptions] = useState(true);
+  const [saving, setSaving] = useState(false);
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-
-    setFormData((prev) => ({ ...prev,
-      [name]: value, }));
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    if (!formData.product || !formData.quantity) {
-      setError("Product and quantity are required.");
-      return;
-    }
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await fetch(`${API_URL}/records`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,},
-        body: JSON.stringify({
-          product_id: Number(formData.product),
-          clerk_id: Number(formData.clerkID), 
-          items_received: Number(formData.quantity),
-          items_in_stock: Number(formData.quantity),
-          supplier_id: Number(formData.supplierID),
-          items_spoilt: Number(formData.spoilt || 0),
-          buying_price: Number(formData.buyingPrice),
-          selling_price: Number(formData.sellingPrice),
-          payment_status: formData.paymentStatus,
-          store_id: Number(formData.storeID), 
-          admin_id: Number(formData.adminID),
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to save record.");
+  useEffect(() => {
+    const loadOptions = async () => {
+      try {
+        const response = await fetch(`${API_URL}/inventory-options`);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || `The API returned ${response.status}.`);
+        setOptions(data);
+      } catch (loadError) {
+        setError(`Could not load clerks and stores. ${loadError.message} Start the backend, then refresh this page.`);
+      } finally {
+        setLoadingOptions(false);
       }
+    };
+    loadOptions();
+  }, []);
 
-      setSuccess("Record added successfully.");
-      setError("");
+  const change = ({ target }) => setForm({ ...form, [target.name]: target.value });
+  const submit = async (event) => {
+    event.preventDefault();
+    setSaving(true); setError("");
+    try {
+      const response = await fetch(`${API_URL}/records`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, items_received: Number(form.items_received), items_in_stock: Number(form.items_in_stock), items_spoilt: Number(form.items_spoilt), buying_price: Number(form.buying_price), selling_price: Number(form.selling_price) }) });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Unable to create the record.");
+      navigate("/clerk/inventory");
+    } catch (submitError) { setError(submitError.message); } finally { setSaving(false); }
+  };
 
-      setFormData({product: "", quantity: "", supplierID: "",
-        paymentStatus: "unpaid", buyingPrice: "",
-        sellingPrice: "", spoilt: "", clerkID: "", storeID: "", adminID: "",});
-
-    } catch (error) {
-      setError(error.message);
-    }
-  }
-
-const labelStyle = {display: "block", fontWeight: "600",
-  marginBottom: "5px",  color: "#374151",};
-
-const inputStyle = {width: "100%", padding: "10px",
-  marginBottom: "16px", border: "1px solid #D1D5DB",
-  borderRadius: "6px", boxSizing: "border-box",};
-
-  return (
-    <div style={{ padding: "24px", maxWidth: "600px" }}>
-      <button
-        onClick={() => navigate("/clerk")}
-        style={{ background: "#6B7280",
-          color: "white", border: "none",
-          padding: "10px 16px",
-          borderRadius: "8px",
-          marginBottom: "20px",cursor: "pointer",
-        }}>
-        Back to Dashboard </button>
-
-      <h1>Record Inventory</h1>
-
-      <ErrorMessage message={error} />
-
-      {success && (
-        <div
-          style={{ background: "#DCFCE7",
-            color: "#166534", padding: "12px",
-            borderRadius: "8px", marginBottom: "16px",
-          }}>
-          {success}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        {/* product input */}
-        <label style={labelStyle}>Product ID</label>
-
-        <input type="number" name="product"
-          value={formData.product} onChange={handleChange}
-          placeholder="Enter product ID" style={inputStyle}/>
-
-        {/*clerkID */}
-        <label style={labelStyle}>Clerk ID</label>
-        <input type="number" name="clerkID"
-          value={formData.clerkID} onChange={handleChange}
-          placeholder="Enter clerk ID" style={inputStyle}/>
-
-        {/*storeID */}
-        <label style={labelStyle}>Store ID</label>
-        <input type="number" name="storeID"
-          value={formData.storeID} onChange={handleChange}
-          placeholder="Enter store ID" style={inputStyle}/>
-
-        {/* Admin ID */}
-        <label style={labelStyle}>Admin ID</label>
-        <input type="number" name="adminID"
-          value={formData.adminID} onChange={handleChange}
-          placeholder="Enter admin ID" style={inputStyle}/>
-        
-        <label style={labelStyle}>Supplier ID</label>
-        <input type="number" name="supplierID"
-          value={formData.supplierID} onChange={handleChange}
-          placeholder="Enter supplier ID" required style={inputStyle}/>
-       
-        {/* Quantity */}
-        <label style={labelStyle}>Quantity Received</label>
-        <input type="number" name="quantity"
-          value={formData.quantity} onChange={handleChange}
-          placeholder="Enter quantity" min="1"
-          style={inputStyle} />
-
-        {/* Buying Price */}
-        <label style={labelStyle}>Buying Price</label>
-
-        <input type="number" name="buyingPrice"
-          value={formData.buyingPrice} onChange={handleChange}
-          placeholder="Enter buying price"
-          min="0" step="0.01"
-          style={inputStyle}/>
-
-        {/* Selling Price */}
-        <label style={labelStyle}>Selling Price</label>
-
-        <input type="number"  name="sellingPrice"
-          value={formData.sellingPrice} onChange={handleChange}
-          placeholder="Enter selling price"
-          min="0" step="0.01"
-          style={inputStyle}/>
-
-        {/* Spoilt Items */}
-        <label style={labelStyle}>Spoilt Items</label>
-
-        <input type="number"  name="spoilt"
-          value={formData.spoilt} onChange={handleChange}
-          placeholder="Enter number of spoilt items"
-          min="0" style={inputStyle}/>
-
-        {/* Payment Status */}
-        <label style={labelStyle}>Payment Status</label>
-
-        <select name="paymentStatus"
-          value={formData.paymentStatus} onChange={handleChange}
-          style={inputStyle} >
-          <option value="unpaid">Unpaid</option>
-          <option value="paid">Paid</option>
-          <option value="partial">Partial</option>
-        </select>
-
-        <button type="submit" style={{ background: "#2563EB", color: "white" }}>
-          Save Record </button>
-      </form>
-    </div>
-  );
+  return <main style={pageStyle}>
+    <button style={backButton} onClick={() => navigate("/clerk")}>← Dashboard</button>
+    <h1>Record Inventory</h1><p>Choose your name and branch, then type the product and supplier names.</p>
+    {error && <p role="alert" style={errorStyle}>{error}</p>}
+    {loadingOptions && <p>Loading available clerks and stores…</p>}
+    <form onSubmit={submit} style={formStyle}>
+      <Select label="Clerk" name="clerk_name" value={form.clerk_name} options={options.clerks} onChange={change} />
+      <Select label="Store or branch" name="store_name" value={form.store_name} options={options.stores} onChange={change} />
+      <TextField label="Product name" name="product_name" value={form.product_name} onChange={change} placeholder="e.g. Pishori rice" />
+      <TextField label="Supplier name" name="supplier_name" value={form.supplier_name} onChange={change} placeholder="e.g. Upendo Suppliers" />
+      <Field label="Items received" name="items_received" value={form.items_received} onChange={change} min="1" />
+      <Field label="Items now in stock" name="items_in_stock" value={form.items_in_stock} onChange={change} min="0" />
+      <Field label="Spoilt items" name="items_spoilt" value={form.items_spoilt} onChange={change} min="0" required={false} />
+      <Field label="Buying price (KSh)" name="buying_price" value={form.buying_price} onChange={change} min="0" step="0.01" />
+      <Field label="Selling price (KSh)" name="selling_price" value={form.selling_price} onChange={change} min="0" step="0.01" />
+      <div><label>Payment status</label><select name="payment_status" value={form.payment_status} onChange={change}><option value="unpaid">Unpaid</option><option value="partial">Partial</option><option value="paid">Paid</option></select></div>
+      <button disabled={saving || loadingOptions} style={primaryButton}>{saving ? "Saving…" : "Save inventory record"}</button>
+    </form>
+  </main>;
 }
-
+function Select({ label, name, value, options, onChange }) { return <div><label>{label}</label><select name={name} value={value} onChange={onChange} required><option value="">Select {label.toLowerCase()}</option>{options.map((option) => <option key={option} value={option}>{option}</option>)}</select></div>; }
+function Field({ label, name, value, onChange, required = true, ...props }) { return <div><label>{label}</label><input type="number" name={name} value={value} onChange={onChange} required={required} {...props} /></div>; }
+function TextField({ label, name, value, onChange, placeholder }) { return <div><label>{label}</label><input type="text" name={name} value={value} onChange={onChange} placeholder={placeholder} required /></div>; }
+const pageStyle = { maxWidth: "760px", margin: "0 auto", padding: "32px 20px", color: "#1F2937" }; const formStyle = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: "16px", padding: "24px", background: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "16px", boxShadow: "0 8px 22px rgba(15, 23, 42, 0.06)" }; const primaryButton = { background: "#2563EB", color: "white", border: 0, borderRadius: "8px", padding: "12px", cursor: "pointer", fontWeight: 600 }; const backButton = { ...primaryButton, background: "#4B5563", marginBottom: "12px" }; const errorStyle = { color: "#B91C1C", background: "#FEF2F2", padding: "10px", borderRadius: "8px" };
 export default Records;
