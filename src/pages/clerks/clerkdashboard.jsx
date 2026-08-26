@@ -81,9 +81,13 @@ function ClerkDashboard() {
           <p>Status: {record.payment_status}</p>
         </div>
 
-        <button style={buttonStyle}
-          onClick={() => navigate(`clerk/record/${record.record_id}`)}>
-          Edit </button>
+       <button style={buttonStyle}
+         onClick={() => {console.log(record.record_id);
+         navigate(`/clerk/edit/${record.record_id}`);
+  }}
+>
+  Edit
+</button>
       </div>
     ))
   )}

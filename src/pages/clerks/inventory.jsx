@@ -52,7 +52,7 @@ function Inventory() {
          </div>
 
             <button style={editButton}
-              onClick={() => navigate(`clerk/record/${record.record_id}`)}>
+              onClick={() => navigate(`/clerk/edit/${record.record_id}`)}>
               Edit</button>
           </div>
         ))
