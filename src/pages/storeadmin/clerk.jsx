@@ -1,57 +1,339 @@
-import { useState } from "react";
-import DeleteButton from "../../components/delete_button";
-import ErrorMessage from "../../components/errorMessage";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Clerk() {
-  const [error, setError] = useState("");
+import { getClerks } from "../../services/adminservice";
 
-  const [clerks, setClerks] = useState([
-    { id: 1, name: "Joel", status: "Active" },
-    { id: 2, name: "Mary", status: "Active" },
-    { id: 3, name: "James", status: "Inactive" },
-  ]);
-  const [search, setSearch] = useState("");
+function AdminDashboard() {
+    const clerk = {
+        id: 1,
+        name: "Clerk One",
+        email: "clerk1@gmail.com"
+    }
 
-  function handleDelete(id) {
-    setClerks(clerks.filter((clerk) => clerk.id !== id));}
+    const navigate = useNavigate();
 
-  const filteredClerks = clerks.filter((clerk) =>
-    clerk.name.toLowerCase().includes(search.toLowerCase()));
+    const [clerks, setClerks] = useState([]);
 
-  return (
-    <div style={{ padding: "24px" }}>
-      <h1>Clerk Management</h1>
-      <ErrorMessage message={error} />
+    const [loading, setLoading] = useState(true);
 
-      <input type="text"
-        placeholder="Search clerk..." value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        style={{ width: "100%", maxWidth: "350px",
-          padding: "10px", marginBottom: "20px", }} />
+    const [error, setError] = useState("");
 
-      {filteredClerks.length === 0 ? (
-        <p>No clerks found.</p>
-      ) : (
-        filteredClerks.map((clerk) => (
-          <div key={clerk.id}
-            style={{display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              border: "1px solid #ddd",
-              padding: "15px", borderRadius: "8px",
-              marginBottom: "12px",
-            }}>
-            <div>
-              <h3>{clerk.name}</h3>
-              <p>Status: {clerk.status}</p>
-            </div>
 
-            <DeleteButton text="Delete"
-              onDelete={() => handleDelete(clerk.id)} />
-          </div>
-        ))
-      )}
-    </div>
-  );}
+    useEffect(() => {
 
-export default Clerk;
+        loadDashboard();
+
+    }, []);
+
+
+    const loadDashboard = async () => {
+
+        try {
+
+            const data = await getClerks();
+
+            setClerks(data.clerks || data);
+
+        } catch (error) {
+
+            setError(error.message);
+
+        } finally {
+
+            setLoading(false);
+
+        }
+    };
+
+
+    return (
+
+        <div className="admin-dashboard">
+
+            {/* SIDEBAR */}
+
+            <aside className="admin-sidebar">
+
+                <div className="admin-logo">
+                    <span>My</span>Duka
+                </div>
+
+                <p className="role">
+                    STORE ADMIN
+                </p>
+
+
+                <nav>
+
+                    <button
+                        onClick={() =>
+                            navigate("/admin")
+                        }
+                    >
+                        🏠 Dashboard
+                    </button>
+
+                    <button
+                        onClick={() =>
+                            navigate("/admin/clerks")
+                        }
+                    >
+                        👥 Clerks
+                    </button>
+
+                    <button
+                        onClick={() =>
+                            navigate("/admin/supply-requests")
+                        }
+                    >
+                        📦 Supply Requests
+                    </button>
+
+                    <button
+                        onClick={() =>
+                            navigate("/admin/payments")
+                        }
+                    >
+                        💰 Payments
+                    </button>
+
+                    <button
+                        onClick={() =>
+                            navigate("/bar-chart")
+                        }
+                    >
+                        📊 Bar Chart Reports
+                    </button>
+
+                    <button
+                        onClick={() =>
+                            navigate("/pie-chart")
+                        }
+                    >
+                        📊 Pie Chart Reports
+                    </button>
+
+                </nav>
+
+
+                <button
+                    className="logout"
+                    onClick={() => {
+
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("user");
+
+                        navigate("/auth/login");
+
+                    }}
+                >
+                    🚪 Logout
+                </button>
+
+            </aside>
+
+
+            {/* MAIN CONTENT */}
+
+            <main className="admin-main">
+
+                <header className="admin-header">
+
+                    <div>
+
+                        <h1>
+                            Store Admin Dashboard
+                        </h1>
+
+                        <p>
+                            Manage your store and team.
+                        </p>
+
+                    </div>
+
+                </header>
+
+
+                {error && (
+                    <div className="error-message">
+                        {error}
+                    </div>
+                )}
+
+
+                {/* STATISTICS */}
+
+                <div className="admin-stats">
+
+                    <div className="stat-card">
+
+                        <div className="stat-icon">
+                            👥
+                        </div>
+
+                        <div>
+                            <p>Total Clerks</p>
+
+                            <h2>
+                                {clerks.length}
+                            </h2>
+                        </div>
+
+                    </div>
+
+
+                    <div className="stat-card">
+
+                        <div className="stat-icon">
+                            📦
+                        </div>
+
+                        <div>
+                            <p>Supply Requests</p>
+
+                            <h2>
+                                <button
+                                    onClick={() =>
+                                        navigate("/admin/supply-requests")
+                                    }
+                                >
+                                    📦 View Requests
+                                </button>
+                            </h2>
+                        </div>
+
+                    </div>
+
+
+                    <div className="stat-card">
+
+                        <div className="stat-icon">
+                            💰
+                        </div>
+
+                        <div>
+                            <p>Unpaid Products</p>
+
+                            <h2>
+                                <button
+                                    onClick={() =>
+                                        navigate("/clerk/unpaid-products")
+                                    }
+                                >
+                                    💰 View Unpaid Products
+                                </button>
+                            </h2>
+                        </div>
+
+                    </div>
+
+
+                    <div className="stat-card">
+
+                        <div className="stat-icon">
+                            📊
+                        </div>
+
+                        <div>
+                            <p>Performance</p>
+
+                            <h2>
+                                <button
+                                    onClick={() =>
+                                       navigate("/bar-chart")
+                                    }
+                              >
+                                    📊 Bar Chart Reports
+                             </button>
+                            </h2>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {/* RECENT CLERKS */}
+
+                <section className="recent-section">
+
+                    <div className="section-header">
+
+                        <h2>
+                            Store Clerks
+                        </h2>
+
+                        <button
+                            onClick={() =>
+                                navigate("/admin/clerks")
+                            }
+                        >
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    {loading ? (
+
+                        <p>Loading clerks...</p>
+
+                    ) : clerks.length === 0 ? (
+
+                        <p>
+                            No clerks have been added yet.
+                        </p>
+
+                    ) : (
+
+                        <div className="clerk-table">
+
+                            {clerks.slice(0, 5).map(
+                                (clerk) => (
+
+                                    <div
+                                        className="clerk-row"
+                                        key={clerk.id}
+                                    >
+
+                                        <div>
+
+                                            <strong>
+                                                {clerk.name}
+                                            </strong>
+
+                                            <small>
+                                                {clerk.email}
+                                            </small>
+
+                                        </div>
+
+                                        <span
+                                            className={
+                                                clerk.is_active
+                                                    ? "active"
+                                                    : "inactive"
+                                            }
+                                        >
+                                            {clerk.is_active
+                                                ? "Active"
+                                                : "Inactive"}
+                                        </span>
+
+                                    </div>
+
+                                )
+                            )}
+
+                        </div>
+
+                    )}
+
+                </section>
+
+            </main>
+
+        </div>
+    );
+}
+
+export default AdminDashboard;
