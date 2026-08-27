@@ -1,8 +1,8 @@
 import React from "react";
 
-function ActiveButton({ active }) {
+function ActiveButton({ active, onClick }) {
   return (
-    <button type="button">
+    <button type="button" onClick={onClick}>
       {active ? "Active" : "Inactive"}
     </button>
   );
