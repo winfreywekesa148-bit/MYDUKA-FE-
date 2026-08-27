@@ -6,7 +6,7 @@ function Admin() {
     {
       id: 1,
       name: "Admin One",
-      email: "admin1@myduka.com",
+      email: "admin1@gmail.com",
       active: true,
     },
     {
