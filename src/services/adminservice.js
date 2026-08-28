@@ -22,6 +22,10 @@ export function getClerks() {
 
 }
 
+// Get all supply requests
+export function getSupplyRequests() {
+    return apiRequest("/admin/supply-requests");
+}
 
 // Approve supply request
 export function approveRequest(id) {
