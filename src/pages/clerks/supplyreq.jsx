@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ErrorMessage from "../../components/errorMessage";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../../components/sidebar";
 
 function SupplyReq() {
   const [product, setProduct] = useState("");
@@ -51,13 +52,28 @@ function SupplyReq() {
     }}
 
   return (
-    <div style={{ padding: "24px", maxWidth: "700px" }}>
+    <div className="admin-dashboard">
+
+            {/* SIDEBAR */}
+
+            <aside className="admin-sidebar">
+
+                <div className="admin-logo">
+
+                    <Sidebar role="clerk" />
+                    
+                    <span>My</span>Duka
+                </div>
+
+            </aside>
+      <div className="supply">
       <h1>Supply Requests</h1>
       <p>Request additional stock from the store admin.</p>
+      </div>
 
       <ErrorMessage message={error} />
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-product">
         <div style={{ marginBottom: "16px" }}>
           <label>Product</label>
           <input type="text" value={product}
@@ -79,14 +95,14 @@ function SupplyReq() {
             Back to Dashboard</button>
 
          <button type="submit"
-          style={{ background: "#2563EB",
+          style={{ background: "#1cb51c",
             color: "white", border: "none",
             padding: "12px 20px", borderRadius: "8px",
             cursor: "pointer", }} >
           Send Request </button>
       </form>
 
-      <div style={{ marginTop: "40px" }}>
+      <div style={{ marginTop: "40px" }} className="req">
         <h2>Previous Requests</h2>
 
         {requests.map((request) => (
