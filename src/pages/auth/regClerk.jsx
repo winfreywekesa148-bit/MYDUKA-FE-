@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../config";
+import Sidebar from "../../components/sidebar";
 
 function RegisterClerk() {
     const navigate = useNavigate();
@@ -32,7 +34,7 @@ function RegisterClerk() {
 
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/auth/register-clerk`,
+                `${API_URL}/clerks`,
                 {
                     method: "POST",
                     headers: {
@@ -68,7 +70,23 @@ function RegisterClerk() {
     };
 
     return (
-        <div className="register-container">
+        <div className="admin-dashboard">
+
+            {/* SIDEBAR */}
+
+            <aside className="admin-sidebar">
+
+                <div className="admin-logo">
+
+                    <Sidebar role="admin" />
+                    
+                    <span>My</span>Duka
+                </div>
+
+            </aside>
+
+            {/* MAIN CONTENT*/}
+            
             <h2>Register Clerk</h2>
             {error && <p className="error">{error}</p>}
             {success && <p className="success">{success}</p>}
