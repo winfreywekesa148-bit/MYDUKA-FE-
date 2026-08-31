@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ActiveButton from "../../components/active_button";
+import Sidebar from "../../components/sidebar";
+
 
 function Admin() {
   const [admins, setAdmins] = useState([
@@ -12,7 +14,7 @@ function Admin() {
     {
       id: 2,
       name: "Admin Two",
-      email: "admin2@myduka.com",
+      email: "admin2@gmail.com",
       active: false,
     },
   ]);
@@ -57,10 +59,12 @@ function Admin() {
   };
 
   return (
-    <div>
-      <h1>Store Administrators</h1>
+    <div className="admin-dashboard">
+      <Sidebar role="merchant" />
+      
+      <h1 className="stadmin">Store Administrators</h1>
 
-      <form onSubmit={addAdmin}>
+      <form onSubmit={addAdmin} className="addadmin">
         <h2>Add Administrator</h2>
 
         <input
@@ -77,10 +81,10 @@ function Admin() {
           onChange={(event) => setEmail(event.target.value)}
         />
 
-        <button type="submit">Add Account</button>
+        <button className="buttons" type="submit">Add Account</button>
       </form>
 
-      <table>
+      <table className="table-container">
         <thead>
           <tr>
             <th>Name</th>
