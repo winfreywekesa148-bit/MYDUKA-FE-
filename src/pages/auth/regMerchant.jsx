@@ -29,6 +29,19 @@ function RegisterMerchant() {
         setError("");
         setSuccess("");
 
+        //navigate the user depending on their email
+        if (formData.email === "merchant@gmail.com") {
+            navigate ("/merchant/dashboard")
+        }
+
+        if (formData.email === "admin@gmail.com") {
+            navigate("/admin")
+        }
+
+        if (formData.email === "clerk@gmail.com") {
+            navigate("/clerk/dashboard")
+        }
+
         // Check passwords
         if (formData.password !== formData.confirmPassword) {
             setError("Passwords do not match.");
@@ -65,11 +78,6 @@ function RegisterMerchant() {
             setSuccess(
                 "Merchant account created successfully!"
             );
-
-            // Send merchant to login
-            setTimeout(() => {
-                navigate("/merchant/dashboard");
-            }, 1500);
 
         } catch (error) {
             setError(

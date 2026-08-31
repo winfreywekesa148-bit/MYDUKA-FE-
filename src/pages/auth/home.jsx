@@ -60,7 +60,7 @@ function Home() {
                                 navigate("/register-merchant")
                             }
                         >
-                            Merchant Registration
+                            Registration
                         </button>
 
                         </span>

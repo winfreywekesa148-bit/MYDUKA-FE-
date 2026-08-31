@@ -19,6 +19,19 @@ function Login() {
 
         setError("");
         setLoading(true);
+        
+        //navigate the user depending on their email
+        if (formData.email === "merchant@gmail.com") {
+            navigate ("/merchant/dashboard")
+        }
+
+        if (formData.email === "admin@gmail.com") {
+            navigate("/admin")
+        }
+
+        if (formData.email === "clerk@gmail.com") {
+            navigate("/clerk/dashboard")
+        }
 
         try {
 
