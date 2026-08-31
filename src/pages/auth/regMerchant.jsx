@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../config";
 
 function RegisterMerchant() {
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ function RegisterMerchant() {
 
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/auth/register-merchant`,
+                `${API_URL}/auth/register-merchant`,
                 {
                     method: "POST",
                     headers: {
@@ -67,7 +68,7 @@ function RegisterMerchant() {
 
             // Send merchant to login
             setTimeout(() => {
-                navigate("/login");
+                navigate("/merchant/dashboard");
             }, 1500);
 
         } catch (error) {
