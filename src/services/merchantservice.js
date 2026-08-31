@@ -16,11 +16,40 @@ export function inviteAdmin(email) {
 
 
 // Get all stores
-export function getStores() {
-
-    return apiRequest("/merchant/stores");
-
+export async function getStores() {
+  return await apiRequest("/stores/stores", {
+    method: "GET",
+  });
 }
+
+
+// Add a store
+export const addStore = (storeData) => {
+    return apiRequest("/stores/stores", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", },
+        body: JSON.stringify(storeData)
+    });
+};
+
+
+
+// Edit a store
+export const updateStore = (storeId, storeData) => {
+    return apiRequest(`/stores/stores/${storeId}`, {
+        method: "PUT",
+        body: JSON.stringify(storeData)
+    });
+};
+
+
+
+// Delete a store
+export const deleteStore = (storeId) => {
+    return apiRequest(`/stores/stores/${storeId}`, {
+        method: "DELETE"
+    });
+};
 
 
 // Get all admins

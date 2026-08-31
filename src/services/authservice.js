@@ -48,7 +48,7 @@ export function registerAdmin(userData) {
 // Clerk Registration (with access code)
 export function registerClerk(userData) {
 
-    return apiRequest("/auth/register-clerk", {
+    return apiRequest("/clerks", {
 
         method: "POST",
 

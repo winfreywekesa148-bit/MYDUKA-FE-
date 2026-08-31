@@ -4,7 +4,7 @@ import { apiRequest } from "./api";
 // Add a clerk
 export function addClerk(clerkData) {
 
-    return apiRequest("/admin/add-clerk", {
+    return apiRequest("/clerks", {
 
         method: "POST",
 
@@ -18,19 +18,41 @@ export function addClerk(clerkData) {
 // Get all clerks
 export function getClerks() {
 
-    return apiRequest("/admin/clerks");
+    return apiRequest("/clerks");
 
 }
+
+// Edit clerk
+export const updateClerk = (clerkId, clerkData) => {
+    return apiRequest(`/clerks/${clerkId}`, {
+        method: "PUT",
+        body: JSON.stringify(clerkData)
+    });
+};
+
+// Deactivate clerk
+export const deactivateClerk = (clerkId) => {
+    return apiRequest(`/clerks/${clerkId}/deactivate`, {
+        method: "PUT"
+    });
+};
+
+// Delete clerk
+export const deleteClerk = (clerkId) => {
+    return apiRequest(`/clerks/${clerkId}`, {
+        method: "DELETE"
+    });
+};
 
 // Get all supply requests
-export function getSupplyRequests() {
-    return apiRequest("/admin/supply-requests");
-}
+export const getSupplyRequests = () => {
+    return apiRequest("/supply-requests");
+};
 
 // Approve supply request
 export function approveRequest(id) {
 
-    return apiRequest(`/admin/supply-request/${id}`, {
+    return apiRequest(`/supply-request/${id}`, {
 
         method: "PUT"
 
@@ -42,7 +64,7 @@ export function approveRequest(id) {
 // Decline supply request
 export function declineRequest(id) {
 
-    return apiRequest(`/admin/supply-request/${id}/decline`, {
+    return apiRequest(`/supply-request/${id}/decline`, {
 
         method: "PUT"
 
@@ -54,7 +76,7 @@ export function declineRequest(id) {
 // View payments
 export function getPayments() {
 
-    return apiRequest("/admin/payments");
+    return apiRequest("/payments");
 
 }
 
@@ -62,7 +84,7 @@ export function getPayments() {
 // Change payment status
 export function markAsPaid(id) {
 
-    return apiRequest(`/admin/payments/${id}`, {
+    return apiRequest(`/payments/${id}`, {
 
         method: "PUT"
 
