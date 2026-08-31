@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../services/authservice";
+import { API_URL } from "../../config";
 
 function Login() {
 
@@ -21,7 +23,7 @@ function Login() {
         try {
 
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/auth/login`,
+                `${API_URL}/auth/login`,
                 {
                     method: "POST",
 
@@ -64,7 +66,7 @@ function Login() {
 
             if (data.user.role === "merchant") {
 
-                navigate("/merchant");
+                navigate("/merchant/dashboard");
 
             } else if (data.user.role === "admin") {
 
@@ -72,7 +74,7 @@ function Login() {
 
             } else if (data.user.role === "clerk") {
 
-                navigate("/clerk");
+                navigate("/clerk/dashboard");
 
             } else {
 
