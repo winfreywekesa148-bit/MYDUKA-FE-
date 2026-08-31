@@ -5,6 +5,7 @@ import {
     approveRequest,
     declineRequest
 } from "../../services/adminservice";
+import Sidebar from "../../components/sidebar";
 
 
 function SupplyRequests() {
@@ -173,12 +174,26 @@ function SupplyRequests() {
 
     return (
 
-        <div className="requests-page">
+        <div className="admin-dashboard">
+
+            {/* SIDEBAR */}
+
+            <aside className="admin-sidebar">
+
+                <div className="admin-logo">
+
+                    <Sidebar role="admin" />
+                    
+                    <span>My</span>Duka
+                </div>
+
+            </aside>
 
 
             {/* HEADER */}
 
             <div className="requests-header">
+
 
                 <div>
 
@@ -258,14 +273,10 @@ function SupplyRequests() {
 
                 <div className="request-stat">
 
-                    <div className="request-stat-icon">
-                        📋
-                    </div>
-
                     <div>
 
                         <span>
-                            Total Requests
+                           📋 Total Requests
                         </span>
 
                         <strong>
@@ -279,14 +290,10 @@ function SupplyRequests() {
 
                 <div className="request-stat">
 
-                    <div className="request-stat-icon pending-icon">
-                        ⏳
-                    </div>
-
                     <div>
 
                         <span>
-                            Pending
+                           ⏳ Pending
                         </span>
 
                         <strong>
@@ -300,14 +307,10 @@ function SupplyRequests() {
 
                 <div className="request-stat">
 
-                    <div className="request-stat-icon approved-icon">
-                        ✓
-                    </div>
-
                     <div>
 
                         <span>
-                            Approved
+                            ✓ Approved
                         </span>
 
                         <strong>
@@ -321,14 +324,10 @@ function SupplyRequests() {
 
                 <div className="request-stat">
 
-                    <div className="request-stat-icon declined-icon">
-                        ✕
-                    </div>
-
                     <div>
 
                         <span>
-                            Declined
+                           ✕ Declined
                         </span>
 
                         <strong>
@@ -434,7 +433,7 @@ function SupplyRequests() {
                                             request.status?.slice(1)}
                                     </span>
 
-                                </div>
+                                
 
 
                                 {/* REQUEST DETAILS */}
@@ -444,12 +443,8 @@ function SupplyRequests() {
 
                                     <div className="detail">
 
-                                        <span>
-                                            Requested By
-                                        </span>
-
                                         <strong>
-                                            {request.clerk_name ||
+                                             Requested By: {request.clerk_name ||
                                                 request.clerk?.name ||
                                                 "Unknown Clerk"}
                                         </strong>
@@ -459,12 +454,8 @@ function SupplyRequests() {
 
                                     <div className="detail">
 
-                                        <span>
-                                            Quantity
-                                        </span>
-
                                         <strong>
-                                            {request.quantity_requested}
+                                            Quantity: {request.quantity_requested}
                                         </strong>
 
                                     </div>
@@ -472,12 +463,8 @@ function SupplyRequests() {
 
                                     <div className="detail">
 
-                                        <span>
-                                            Store
-                                        </span>
-
                                         <strong>
-                                            {request.store_name ||
+                                            Store: {request.store_name ||
                                                 "MyDuka Store"}
                                         </strong>
 
@@ -486,12 +473,8 @@ function SupplyRequests() {
 
                                     <div className="detail">
 
-                                        <span>
-                                            Date Requested
-                                        </span>
-
                                         <strong>
-                                            {request.created_at
+                                             Date Requested: {request.created_at
                                                 ? new Date(
                                                     request.created_at
                                                 ).toLocaleDateString()
@@ -507,17 +490,13 @@ function SupplyRequests() {
 
                                 <div className="request-reason">
 
-                                    <span>
-                                        Reason for request
-                                    </span>
-
                                     <p>
-                                        {request.reason ||
+                                        Reason for request: {request.reason ||
                                             "No reason provided."}
                                     </p>
 
                                 </div>
-
+                                </div>
 
                                 {/* ACTIONS */}
 
