@@ -1,20 +1,39 @@
 import React, { useState } from "react";
 import UnpaidButton from "../../components/un_paid_button";
+import Sidebar from "../../components/sidebar";
 
 function Payment() {
   const [payments, setPayments] = useState([
     {
       id: 1,
-      description: "Supplier Payment",
+      description: "Fruit Supply Payment",
       amount: 15000,
       paid: true,
     },
     {
       id: 2,
-      description: "Stock Payment",
-      amount: 8500,
+      description: "Milk Supply Payment",
+      amount: 500,
       paid: false,
     },
+    {
+      id: 3,
+      description: "Vegetable Supply Payment",
+      amount: 2000,
+      paid: true,
+    },
+    {
+      id: 4,
+      description: "Grain Supply Payment",
+      amount: 3000,
+      paid: false,
+    },
+    {
+      id: 5,
+      description: "Meat Supply Payment",
+      amount: 8000,
+      paid: true,
+    }
   ]);
 
   const togglePaymentStatus = (id) => {
@@ -28,8 +47,12 @@ function Payment() {
   };
 
   return (
-    <div>
-      <h1>Payments</h1>
+    <div className="admin-dashboard">
+      <Sidebar role="merchant" />
+
+      <div className="pay">
+       <h1>Payments</h1>  
+      </div>
 
       <table>
         <thead>
