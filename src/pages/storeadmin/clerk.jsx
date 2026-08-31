@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../../components/sidebar";
 
 import { getClerks } from "../../services/adminservice";
 
 function AdminDashboard() {
     const clerk = {
-        id: 1,
-        name: "Clerk One",
-        email: "clerk1@gmail.com"
+       admin_id: "1",
+       clerk_id: "1",
+       clerk_name:"Clerk One",
+       created_at:"Sun, 23 Aug 2026 10:14:41 GMT",
+       store_id: "1"
     }
-
+    
     const navigate = useNavigate();
 
     const [clerks, setClerks] = useState([]);
@@ -55,80 +58,11 @@ function AdminDashboard() {
             <aside className="admin-sidebar">
 
                 <div className="admin-logo">
+
+                    <Sidebar role="admin" />
+                    
                     <span>My</span>Duka
                 </div>
-
-                <p className="role">
-                    STORE ADMIN
-                </p>
-
-
-                <nav>
-
-                    <button
-                        onClick={() =>
-                            navigate("/admin")
-                        }
-                    >
-                        🏠 Dashboard
-                    </button>
-
-                    <button
-                        onClick={() =>
-                            navigate("/admin/clerks")
-                        }
-                    >
-                        👥 Clerks
-                    </button>
-
-                    <button
-                        onClick={() =>
-                            navigate("/admin/supply-requests")
-                        }
-                    >
-                        📦 Supply Requests
-                    </button>
-
-                    <button
-                        onClick={() =>
-                            navigate("/admin/payments")
-                        }
-                    >
-                        💰 Payments
-                    </button>
-
-                    <button
-                        onClick={() =>
-                            navigate("/bar-chart")
-                        }
-                    >
-                        📊 Bar Chart Reports
-                    </button>
-
-                    <button
-                        onClick={() =>
-                            navigate("/pie-chart")
-                        }
-                    >
-                        📊 Pie Chart Reports
-                    </button>
-
-                </nav>
-
-
-                <button
-                    className="logout"
-                    onClick={() => {
-
-                        localStorage.removeItem("token");
-                        localStorage.removeItem("user");
-
-                        navigate("/auth/login");
-
-                    }}
-                >
-                    🚪 Logout
-                </button>
 
             </aside>
 
@@ -264,7 +198,7 @@ function AdminDashboard() {
 
                         <button
                             onClick={() =>
-                                navigate("/admin/clerks")
+                                navigate("/register-clerk")
                             }
                         >
                             View All
@@ -290,20 +224,23 @@ function AdminDashboard() {
                             {clerks.slice(0, 5).map(
                                 (clerk) => (
 
-                                    <div
+                                    <div key={clerk.clerk_id}
                                         className="clerk-row"
-                                        key={clerk.id}
                                     >
 
                                         <div>
 
                                             <strong>
-                                                {clerk.name}
+                                                {clerk.clerk_name}
                                             </strong>
 
-                                            <small>
-                                                {clerk.email}
-                                            </small>
+                                            <strong>
+                                               admin id: {clerk.admin_id}
+                                            </strong>
+
+                                            <span>
+                                               store id: {clerk.store_id}
+                                            </span>
 
                                         </div>
 
