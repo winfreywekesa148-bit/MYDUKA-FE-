@@ -1,137 +1,95 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import Login from "./src/pages/auth/login";
-import RegisterMerchant from "./src/pages/auth/regMerchant";
-import RegisterAdmin from "./src/pages/auth/regAdmin";
-import RegisterClerk from "./src/pages/auth/regClerk";
+import Home from "./pages/auth/home";
+import Login from "./pages/auth/login";
+import RegisterMerchant from "./pages/auth/regMerchant";
+import RegisterClerk from "./pages/auth/regClerk";
+import SalesChart from "./pages/charts/barchart";
+import ProductPieChart from "./pages/charts/piechart";
+import { StrictMode } from "react";
+import MerchantDashboard from "./pages/merchants/merchantdashboard";
+import MerchantAdmin from "./pages/merchants/admin";
+import MerchantStores from "./pages/merchants/stores";
+import MerchantPayment from "./pages/merchants/payment";
+import ClerkDashboard from "./pages/clerks/clerkdashboard";
+import Records from "./pages/clerks/records";
+import SupplyReq from "./pages/clerks/supplyreq";
+import Inventory from "./pages/clerks/inventory";
+import EditRecord from "./pages/clerks/editrecord";
+import AdminDashboard from "./pages/storeadmin/clerk";
+import SupplyRequests from "./pages/storeadmin/supply_req";
+import Chart from "./pages/charts/barchart2";
 
-import MerchantDashboard from "./src/pages/merchants/merchantdashboard";
-import Stores from "./src/pages/merchants/stores";
-import Admin from "./src/pages/merchants/admin";
-import Payment from "./src/pages/merchants/payment";
-
-import AdminDashboard from "./src/pages/storeadmin/clerk";
-import SupplyReq from "./src/pages/storeadmin/supply_req";
-
-import ClerkDashboard from "./src/pages/clerks/clerkdashboard";
-import Records from "./src/pages/clerks/records";
-import SupplyRequest from "./src/pages/clerks/supplyreq";
-import Inventory from "./src/pages/clerks/inventory";
-import EditRecord from "./src/pages/clerks/editrecord";
-
-import GraphReport from "./src/pages/clerks/graphreport";
-import BarChart from "./src/pages/charts/barchart";
-import PieChart from "./src/pages/charts/piechart";
 
 function App() {
-  return (
-    <Routes>
-      {/* AUTH */}
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/auth/login" element={<Login />} />
 
-      <Route
-        path="/register-merchant"
-        element={<RegisterMerchant />}
-      />
+    return (
+  
+        <Routes>
 
-      <Route
-        path="/register-admin"
-        element={<RegisterAdmin />}
-      />
+            {/* PUBLIC */}
 
-      <Route
-        path="/register-clerk"
-        element={<RegisterClerk />}
-      />
+            <Route
+                path="/"
+                element={<Home />}
+            />
 
-      {/* MERCHANT */}
-      <Route
-        path="/merchant"
-        element={<MerchantDashboard />}
-      />
+            <Route
+                path="/auth/login"
+                element={<Login />}
+            />
 
-      <Route
-        path="/merchant/stores"
-        element={<Stores />}
-      />
+            <Route
+                path="/register-merchant"
+                element={<RegisterMerchant />}
+            />
 
-      <Route
-        path="/merchant/admins"
-        element={<Admin />}
-      />
+            <Route
+                path="/register-clerk"
+                element={<RegisterClerk />}
+            />
 
-      <Route
-        path="/merchant/payments"
-        element={<Payment />}
-      />
+            <Route
+                path="/bar-chart"
+                element={<SalesChart />}
+            />
 
-      {/* STORE ADMIN */}
-      <Route
-        path="/admin"
-        element={<AdminDashboard />}
-      />
+            <Route
+                path="/pie-chart"
+                element={<ProductPieChart />}
+            />
+            <Route
+                path="/graph-report"
+                element={<Chart/>}
+            />    
 
-      <Route
-        path="/admin/clerks"
-        element={<AdminDashboard />}
-      />
+            <Route path="/merchant/dashboard" element={<MerchantDashboard />} />
+            <Route path="/merchant/admin" element={<MerchantAdmin />} />
+            <Route path="/stores" element={<MerchantStores />} />
+            <Route path="/merchant/payments" element={<MerchantPayment />} />
+      
+               {/* Clerk Dashboard */}
+            
+            <Route path="/clerk/dashboard" element={<ClerkDashboard />} />
 
-      <Route
-        path="/admin/supply-requests"
-        element={<SupplyReq />}
-      />
+               {/* Clerk Pages */}
+            <Route path="/clerk/records" element={<Records />} />
+            <Route path="/clerk/supplyreq" element={<SupplyReq />} />
+            <Route path="/clerk/inventory" element={<Inventory />} />
 
-      {/* CLERK */}
-      <Route
-        path="/clerk"
-        element={<ClerkDashboard />}
-      />
+               {/* Edit Record */}
+            <Route path="/clerk/edit/:recordId" element={<EditRecord />} />
 
-      <Route
-        path="/clerk/records"
-        element={<Records />}
-      />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/clerks" element={<AdminDashboard />} />
+            <Route path="/admin/supply-requests" element={<SupplyRequests />} />
+            <Route path="/admin/payments" element={<AdminDashboard />} />
+            <Route path="/admin/reports" element={<AdminDashboard />} />
+      
 
-      <Route
-        path="/clerk/inventory"
-        element={<Inventory />}
-      />
-
-      <Route
-        path="/clerk/edit/:recordId"
-        element={<EditRecord />}
-      />
-
-      <Route
-        path="/clerk/supplyreq"
-        element={<SupplyRequest />}
-      />
-
-      {/* REPORTS */}
-      <Route
-        path="/graph-report"
-        element={<GraphReport />}
-      />
-
-      <Route
-        path="/bar-chart"
-        element={<BarChart />}
-      />
-
-      <Route
-        path="/pie-chart"
-        element={<PieChart />}
-      />
-
-      {/* FALLBACK */}
-      <Route
-        path="*"
-        element={<Navigate to="/login" replace />}
-      />
-    </Routes>
-  );
+        </Routes>
+        
+    );
 }
 
 export default App;
