@@ -6,6 +6,7 @@ import Records from "./pages/clerks/records";
 import SupplyReq from "./pages/clerks/supplyreq";
 import Inventory from "./pages/clerks/inventory";
 import EditRecord from "./pages/clerks/editrecord";
+import MerchantDashboard from "./pages/merchants/merchantdashboard";
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
 
       {/* Edit Record */}
       <Route path="/clerk/edit/:recordId" element={<EditRecord />} />
+
+      {/* Merchant route */}
+      <Route path="/merchant/dashboard" element={<MerchantDashboard/>}/>
+
     </Routes>
   );
 }
