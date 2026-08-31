@@ -849,6 +849,7 @@ label {
 }
 
 .merchant-card{
+  justify-content: space-around;
   height: 250px;
   background-color: #739c7e;
     animation-name: myAnimation;
