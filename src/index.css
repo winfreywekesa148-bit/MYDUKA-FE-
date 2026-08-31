@@ -84,6 +84,7 @@ button {
   color: var(--text);
   font-weight: 600;
   transition: 0.2s ease;
+  outline-color: #166534;
 }
 
 button:hover {
@@ -163,7 +164,7 @@ label {
 
 /* =========================
    AUTH
-========================= */
+======================== */
 
 .auth-container,
 .login-page {
@@ -409,7 +410,7 @@ label {
 
 .clerk-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   gap: 15px;
   padding: 15px 0;
@@ -670,4 +671,461 @@ label {
   .sidebar-logout {
     margin-top: 16px;
   }
+}
+
+.dashboard-preview {
+  background: #f5f8f5;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: center;
+  align-items: space-around;
+  width: 95%;
+  border:#e2e8e5;
+  height: 100%;
+   
+}
+
+.preview-header {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  justify-content: center;
+  display: flex;
+  text-decoration:underline;
+  text-shadow: #000000;
+
+
+}
+
+.nav-links {
+  justify-content: center;
+  display: flex;
+  margin-top: 30px;
+
+}
+
+.small-heading {
+  justify-content: center;
+  display:flex;
+  font-weight: 600;
+
+}
+
+.grow {
+  justify-content: center;
+  display: flex;
+}
+
+.hero-buttons {
+  justify-content: center;
+  display: flex;
+}
+
+.preview-card  {
+    width: 200px;
+    padding: 25px;
+    margin: 20px;
+    background: #ffffff;
+
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    background-color: #739c7e;
+    animation-name: myAnimation;
+    animation-duration: 4s;
+
+}
+
+@keyframes myAnimation {
+  0%   {background-color:#1e9137;}
+  20%  {background-color: #077128;}
+  40%  {background-color: #24743b;}
+  60% {background-color: #3b8150;}
+  80% {background-color: #4f8960;}
+  100% {background-color: #5f956f;}
+}
+
+.preview-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.preview-card h2 {
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+.preview-cards{
+  align-items: center;
+  display:flex;
+}
+
+.you {
+  justify-content: center;
+  display: flex;
+}
+
+.under {
+  justify-content: center;
+  display:flex;
+}
+
+.tools {
+  justify-content: center;
+  display: flex;
+}
+
+.feature-card,
+.merchant-card,
+.store-card,
+.section-title {
+    width: 200px;
+    height: 300px;
+    padding: 25px;
+    margin: 20px;
+    background: #ffffff;
+
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.feature-grid,
+.merchant-cards,
+.stores-grid {
+  align-items: center;
+  display:flex;
+}
+
+.small-header {
+  justify-content: center;
+  display: flex;
+  font-weight: 600;
+  font-size: medium;
+}
+
+.less{
+  justify-content: center;
+  display: flex;
+
+}
+
+.ready {
+  justify-content: center;
+  display: flex;
+}
+
+.start {
+  justify-content: center;
+  display: flex;
+}
+
+.hero-button {
+  padding: 30px;
+  justify-content: center;
+  display: flex;
+
+}
+
+.merchant-dashboard,
+.welcome,
+.manage,
+.overview{
+  justify-content: center;
+  display: flex;
+
+}
+
+.merchant-card{
+  height: 250px;
+  background-color: #739c7e;
+    animation-name: myAnimation;
+    animation-duration: 4s;
+
+}
+
+@keyframes myAnimation {
+  0%   {background-color:#1e9137;}
+  20%  {background-color: #077128;}
+  40%  {background-color: #24743b;}
+  60% {background-color: #3b8150;}
+  80% {background-color: #4f8960;}
+  100% {background-color: #5f956f;}
+
+}
+
+.store-form-card{
+    width: 400px;
+    height: 500px;
+    padding: 25px;
+    margin: 20px;
+    background: #ffffff;
+
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.stores-grid{
+  align-items: center;
+  justify-items: flex-start;
+
+}
+
+.buttons {
+  width: 300px;
+  background-color: white;
+  color: #16a34a;
+  border: 2px solid #16a34a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 70px;
+  text-align: center;
+}
+
+.section-title {
+  height: 150px;
+  width: 600px;
+  text-align: center;
+  font-size: larger;
+  padding-top: 10px;
+  color: #10b981;
+  
+}
+
+.edit-btn{
+  width: 150px;
+  background-color: white;
+  color: #000000;
+  border: 2px solid #16a34a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 70px;
+  text-align: center;
+}
+
+.stadmin {
+  text-align: center;
+  width: 800px;
+  height: 70px;
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  margin-left: 20px;
+}
+
+.addadmin{
+    width: 700px;
+    height: 400px;
+    padding: 25px;
+    margin-top: 100px;
+    background: #ffffff;
+
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+/* TABLE CONTAINER */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 25px;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* TABLE HEADER */
+thead {
+    background-color: #16a34a;
+    color: white;
+}
+
+/* TABLE ROW */
+tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* TABLE HEADER CELLS */
+th {
+    padding: 15px 18px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* TABLE BODY */
+tbody {
+    background-color: white;
+    padding: 8px 12px;
+    
+}
+
+/* TABLE BODY CELLS */
+td {
+    padding: 14px 18px;
+    color: #374151;
+    font-size: 14px;
+    padding: 8px 12px;
+}
+
+/* HOVER EFFECT */
+tbody tr:hover {
+    background-color: #f0fdf4;
+}
+
+/* LAST ROW */
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+.pay{
+  justify-content: center;
+  align-content:flex-start;
+}
+
+.clerk-row {
+  color: #000000;
+  background-color: #739c7e;
+    animation-name: myAnimation;
+    animation-duration: 4s;
+
+}
+
+@keyframes myAnimation {
+  0%   {background-color:#1e9137;}
+  20%  {background-color: #077128;}
+  40%  {background-color: #24743b;}
+  60% {background-color: #3b8150;}
+  80% {background-color: #4f8960;}
+  100% {background-color: #5f956f;}
+
+}
+
+.requests-header{
+  align-items: center;
+  padding-left: 50px;
+}
+
+.request-stats,
+.form-product,
+.req{
+    width: 400px;
+    height: 300px;
+    padding: 25px;
+    margin: 20px;
+    background: #ffffff;
+
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.request-stat{
+  padding: 10px;
+
+}
+
+.request-card-header{
+  width: 350px;
+  height: 300px;
+  padding: 25px;
+  margin: 20px;
+  background: #ffffff;
+
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.already-reviewed{
+  text-align: center;
+  border-radius: 15px;
+  justify-content: center;
+  display: flex;
+  height: 50px;
+  width: 300px;
+  background-color: #739c7e;
+    animation-name: myAnimation;
+    animation-duration: 4s;
+
+}
+
+@keyframes myAnimation {
+  0%   {background-color:#1e9137;}
+  20%  {background-color: #077128;}
+  40%  {background-color: #24743b;}
+  60% {background-color: #3b8150;}
+  80% {background-color: #4f8960;}
+  100% {background-color: #5f956f;}
+
+}
+
+.admindash{
+  display: flex;
+  background-color: white;
+  color: #000000;
+  border: 2px solid #16a34a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.supply{
+  padding-left: 30px;
+  width: 500px;
+  height: 200px;
+}
+
+.form-product{
+  height: 350px;
+}
+
+.req{
+  height: 450px;
+  
 }
