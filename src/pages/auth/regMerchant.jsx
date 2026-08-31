@@ -30,15 +30,15 @@ function RegisterMerchant() {
         setSuccess("");
 
         //navigate the user depending on their email
-        if (formData.email === "merchant@gmail.com") {
+        if (formData.email === "merchant12@gmail.com") {
             navigate ("/merchant/dashboard")
         }
 
-        if (formData.email === "admin@gmail.com") {
+        if (formData.email === "admin34@gmail.com") {
             navigate("/admin")
         }
 
-        if (formData.email === "clerk@gmail.com") {
+        if (formData.email === "clerk56@gmail.com") {
             navigate("/clerk/dashboard")
         }
 
@@ -76,7 +76,7 @@ function RegisterMerchant() {
             }
 
             setSuccess(
-                "Merchant account created successfully!"
+                "Account created successfully!"
             );
 
         } catch (error) {
@@ -93,10 +93,10 @@ function RegisterMerchant() {
 
             <div className="auth-card">
 
-                <h1>Create Merchant Account</h1>
+                <h1>Create An Account</h1>
 
                 <p>
-                    Register your MyDuka merchant account.
+                    Register your MyDuka account.
                 </p>
 
                 {error && (

@@ -19,17 +19,17 @@ function Login() {
 
         setError("");
         setLoading(true);
-        
+
         //navigate the user depending on their email
-        if (formData.email === "merchant@gmail.com") {
+        if (email === "merchant12@gmail.com") {
             navigate ("/merchant/dashboard")
         }
 
-        if (formData.email === "admin@gmail.com") {
+        if (email === "admin34@gmail.com") {
             navigate("/admin")
         }
 
-        if (formData.email === "clerk@gmail.com") {
+        if (email === "clerk56@gmail.com") {
             navigate("/clerk/dashboard")
         }
 
@@ -209,7 +209,7 @@ function Login() {
 
 
                 <p className="register-text">
-                    Don't have a merchant account?
+                    Don't have an account?
                 </p>
 
                 <button
@@ -218,7 +218,7 @@ function Login() {
                         navigate("/register-merchant")
                     }
                 >
-                    Create Merchant Account
+                    Create Account
                 </button>
 
 
