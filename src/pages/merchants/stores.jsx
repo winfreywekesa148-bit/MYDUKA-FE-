@@ -267,7 +267,7 @@ function Stores() {
 
             {/* ADD / EDIT FORM */}
 
-            <div className="admin-main">
+            <main className="admin-main">
 
                 <form
                     className="store-form-card"
@@ -365,7 +365,7 @@ function Stores() {
 
                 </form>
 
-            </div>
+            </main>
 
           <div className="admin-main">
 

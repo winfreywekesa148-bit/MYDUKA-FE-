@@ -11,14 +11,11 @@ function MerchantDashboard() {
 
       {/* SIDEBAR */}
       <aside className="admin-sidebar">
-
-        <div className="admin-logo">
-
+        
           <Sidebar role="merchant" />
                     
             <span>My</span>Duka
-        </div>
-
+       
           <p className="role">
                     MERCHANT
           </p>
