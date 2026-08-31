@@ -38,7 +38,7 @@ function Sidebar({ role }) {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    navigate("/login");
+    navigate("/auth/login");
   };
 
   return (
