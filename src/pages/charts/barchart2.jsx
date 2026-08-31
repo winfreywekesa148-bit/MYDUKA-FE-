@@ -12,28 +12,28 @@ import AdminDashboard from ".././storeadmin/clerk";
 import { useNavigate } from "react-router-dom";
 
 const data = [
-  { product: "Store_1", sales: 150 },
-  { product: "Store_2", sales: 100 },
-  { product: "Store_3", sales: 80 },
-  { product: "Store_4", sales: 120 },
-  { product: "Store_5", sales: 90 },
-  { product: "Store_6", sales: 60 }
+  { product: "Store_1", review: 7 },
+  { product: "Store_2", review: 5 },
+  { product: "Store_3", review: 6 },
+  { product: "Store_4", review: 7 },
+  { product: "Store_5", review: 6 },
+  { product: "Store_6", review: 8 }
 ];
 
-function SalesChart() {
+function Chart() {
   const navigate = useNavigate();
 
   return (
     <div>
     <div>
-      <h2>Progress Of Stores</h2>     
+      <h2>Reviews Of Stores</h2>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="product" />
           <YAxis />
           <Tooltip />
-          <Bar dataKey="sales" fill=" #24743b"/>
+          <Bar dataKey="review" fill=" #24743b"/>
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -41,13 +41,12 @@ function SalesChart() {
     <button
        className="admindash"
        onClick={() =>
-         navigate("/admin")}
+         navigate("/clerk/dashboard")}
     >
       Back to dashboard
     </button>
-    
     </div>
   );
 }
 
-export default SalesChart;
+export default Chart;

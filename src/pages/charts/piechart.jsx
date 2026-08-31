@@ -7,6 +7,8 @@ import {
   Cell
 } from "recharts";
 
+import { useNavigate } from "react-router-dom";
+
 const data = [
   { name: "Sugar", value: 85 },
   { name: "Milk", value: 70 },
@@ -35,7 +37,10 @@ const colors = [
 ];
 
 function ProductPieChart() {
+  const navigate = useNavigate();
+
   return (
+    <div>
     <div>
       <h2>Product Sales Distribution</h2>
       <ResponsiveContainer width="100%" height={300}>
@@ -58,6 +63,15 @@ function ProductPieChart() {
       <Legend />
     </PieChart>
     </ResponsiveContainer>
+    </div>
+
+    <button
+       className="admindash"
+       onClick={() =>
+         navigate("/admin")}
+    >
+      Back to dashboard
+    </button>
     </div>
   );
 }
