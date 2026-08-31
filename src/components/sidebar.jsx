@@ -6,15 +6,15 @@ function Sidebar({ role }) {
 
   const menus = {
     merchant: [
-      { label: "Dashboard", path: "/merchant", icon: "⌂" },
-      { label: "Stores", path: "/merchant/stores", icon: "▣" },
-      { label: "Administrators", path: "/merchant/admins", icon: "♙" },
+      { label: "Dashboard", path: "/merchant/dashboard", icon: "⌂" },
+      { label: "Stores", path: "/stores", icon: "▣" },
+      { label: "Administrators", path: "/merchant/admin", icon: "♙" },
       { label: "Payments", path: "/merchant/payments", icon: "₵" },
     ],
 
     admin: [
       { label: "Dashboard", path: "/admin", icon: "⌂" },
-      { label: "Clerks", path: "/admin/clerks", icon: "♙" },
+      { label: "Clerks", path: "/register-clerk", icon: "♙" },
       {
         label: "Supply Requests",
         path: "/admin/supply-requests",
@@ -82,4 +82,3 @@ function Sidebar({ role }) {
 }
 
 export default Sidebar;
-
