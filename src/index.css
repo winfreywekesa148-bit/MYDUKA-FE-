@@ -849,6 +849,7 @@ label {
 }
 
 .merchant-card{
+  justify-content: space-around;
   height: 250px;
   background-color: #739c7e;
     animation-name: myAnimation;
@@ -1128,4 +1129,66 @@ tbody tr:last-child {
 .req{
   height: 450px;
   
+}
+
+.register-form{
+  width: 400px;
+  height: 300px;
+  padding: 25px;
+  margin: 20px;
+  background: #ffffff;
+
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.form-header{
+  justify-content: center;
+  display: flex;
+  text-align: center;
+}
+
+.payment-card{
+  width: 400px;
+  height: 400px;
+  padding: 25px;
+  margin: 20px;
+  background: #ffffff;
+
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.edibtn{
+  width: 200px;
+  background-color: white;
+  color: #000000;
+  border: 2px solid #16a34a;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 70px;
+  text-align: center;
+}
+
+.status-card{
+  width: 400px;
+  height: 200px;
+  padding: 25px;
+  margin: 20px;
+  background: #daedd9;
+
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
