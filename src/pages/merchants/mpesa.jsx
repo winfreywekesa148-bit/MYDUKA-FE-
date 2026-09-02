@@ -85,7 +85,7 @@ function MpesaPayment() {
             />
           </div>
 
-          <button className="pay-button" onClick={pay}>
+          <button className="edibtn" onClick={pay}>
             Pay with M-Pesa
           </button>
         </div>
