@@ -69,28 +69,18 @@ function RegisterClerk() {
         }
     };
 
-    return (
+    return (     
+        
         <div className="admin-dashboard">
-
-            {/* SIDEBAR */}
-
-            <aside className="admin-sidebar">
-
-                <div className="admin-logo">
-
-                    <Sidebar role="admin" />
-                    
-                    <span>My</span>Duka
-                </div>
-
-            </aside>
+                <Sidebar role="admin" />
+                           
 
             {/* MAIN CONTENT*/}
             
-            <h2>Register Clerk</h2>
+            <h2 className="form-header">Register Clerk</h2>
             {error && <p className="error">{error}</p>}
             {success && <p className="success">{success}</p>}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="register-form">
                 <div>
                     <label htmlFor="clerk_name">Clerk Name:</label>
                     <input
@@ -124,22 +114,12 @@ function RegisterClerk() {
                         required
                     />
                 </div>
-                <button type="submit" disabled={loading}>
+                <button className="edit-btn" type="submit" disabled={loading}>
                     {loading ? "Registering..." : "Register Clerk"}
                 </button>
             </form>
-            
-            <p>
-                    Already have an account?
-                    <button
-                        type="button"
-                        onClick={() => navigate("/auth/login")}
-                    >
-                        Login
-                    </button>
-                </p>
 
-        </div>
+         </div>
     );
 }
 
