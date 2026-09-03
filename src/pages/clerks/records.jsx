@@ -169,17 +169,9 @@ function Records() {
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div style={{
-            backgroundColor: "#DCFCE7",
-            color: "#166534",
-            border: "1px solid #86EFAC",
-            padding: "12px 16px",
-            borderRadius: "8px",
-            marginBottom: "20px",
-            fontWeight: "600",
-        }}>
-            {error}
-          </div>
+        <div role="alert" style={errorStyle}>
+          <strong>Error:</strong> {error}
+        </div>
         )}
 
         {/* FORM */}
