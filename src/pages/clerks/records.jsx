@@ -177,7 +177,7 @@ function Records() {
             borderRadius: "8px",
             marginBottom: "20px",
             fontWeight: "600",
-          }}>
+        }}>
             {error}
           </div>
         )}
