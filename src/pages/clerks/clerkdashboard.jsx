@@ -62,20 +62,6 @@ function ClerkDashboard() {
 
       {error && <p role="alert">{error}</p>}
 
-       <section style={summary}>
-      {[
-        ["Received", stats.received],
-        ["In stock", stats.stock],
-        ["Spoilt", stats.spoilt],
-        ["Unpaid", stats.unpaid],
-       ].map(([label, value]) => (
-        <div key={label} style={stat}>
-          <small>{label}</small>
-          <strong>{value}</strong>
-        </div>
-      ))}
-    </section>
-
     <section style={quick}>
       <button style={primary} onClick={() => navigate("/clerk/records")}>
         Record inventory</button>
