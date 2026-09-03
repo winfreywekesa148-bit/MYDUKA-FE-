@@ -8,10 +8,10 @@ import Sidebar from "../../components/sidebar";
 // =====================================================
 
 const initialForm = {
-  clerk_name: "",
+  clerk_id: "",
   product_name: "",
   supplier_name: "",
-  store_name: "",
+  store_id: "",
   items_received: "",
   items_in_stock: "",
   items_spoilt: "0",
@@ -28,11 +28,6 @@ function Records() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState(initialForm);
-
-  const [options, setOptions] = useState({
-    clerks: [],
-    stores: [],
-  });
 
   const [error, setError] = useState("");
   const [loadingOptions, setLoadingOptions] = useState(true);
@@ -98,11 +93,21 @@ function Records() {
       const recordData = {
         ...form,
 
+        clerk_id: Number(form.clerk_id),
+        store_id: Number(form.store_id),
+
+        product_name: form.product_name,
+        supplier_name: form.supplier_name,
+
         items_received: Number(form.items_received),
         items_in_stock: Number(form.items_in_stock),
         items_spoilt: Number(form.items_spoilt),
+
         buying_price: Number(form.buying_price),
         selling_price: Number(form.selling_price),
+
+        payment_status: form.payment_status,
+
       };
 
       const response = await fetch(`${API_URL}/records`, {
@@ -186,8 +191,7 @@ function Records() {
         <Select
           label="Clerk"
           name="clerk_name"
-          value={form.clerk_name}
-          options={options.clerks}
+          value={form.clerk_id}
           onChange={change}
           placeholder="Select clerk"
         />
@@ -199,8 +203,7 @@ function Records() {
         <Select
           label="Store or Branch"
           name="store_name"
-          value={form.store_name}
-          options={options.stores}
+          value={form.store_id}
           onChange={change}
           placeholder="Select store"
         />
@@ -414,17 +417,7 @@ function Field({
   );
 }
 
-// =====================================================
-// TEXT FIELD
-// =====================================================
-
-function TextField({
-  label,
-  name,
-  value,
-  onChange,
-  placeholder,
-}) {
+{
   return (
     <div style={inputGroupStyle}>
 
