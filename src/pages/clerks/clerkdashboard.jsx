@@ -51,8 +51,8 @@ function ClerkDashboard() {
       <main style={page}>
         <section style={hero}>
           <div>
-           <p style={{ margin: 0 }}>CLERK WORKSPACE</p>
-           <h1 style={{ margin: "6px 0" }}>Inventory overview</h1>
+           <p style={{ margin: "0", color:"black" }}>CLERK WORKSPACE</p>
+           <h1 style={{ margin: "6px 0", color:"black" }}>Inventory overview</h1>
            <small>Live totals from all clerk record changes</small>
           </div>
 
