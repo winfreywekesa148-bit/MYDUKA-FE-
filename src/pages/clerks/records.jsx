@@ -221,7 +221,7 @@ function Records() {
           Inventory Records
         </h1>
 
-        <p>
+        <p className="stadmin">
           Add and manage your store inventory.
         </p>
 
