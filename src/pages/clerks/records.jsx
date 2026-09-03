@@ -151,20 +151,6 @@ function Records() {
         >
           ← Back to Dashboard
         </button>
-
-        {error && (
-        <div
-          style={{
-            backgroundColor: "#DCFCE7",
-            color: "#166534",
-            border: "1px solid #86EFAC",
-            padding: "12px 16px",
-            borderRadius: "8px",
-            marginBottom: "20px",
-            fontWeight: "600",
-          }}
-        >
-          {error}
           
         </div>
       )}
@@ -183,7 +169,15 @@ function Records() {
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div role="alert" style={errorStyle}>
+          <div role="alert" style={{
+            backgroundColor: "#DCFCE7",
+            color: "#166534",
+            border: "1px solid #86EFAC",
+            padding: "12px 16px",
+            borderRadius: "8px",
+            marginBottom: "20px",
+            fontWeight: "600",
+          }}>
             <strong>Error:</strong> {error}
           </div>
         )}
