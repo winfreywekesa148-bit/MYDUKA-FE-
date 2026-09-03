@@ -152,6 +152,23 @@ function Records() {
           ← Back to Dashboard
         </button>
 
+        {error && (
+        <div
+          style={{
+            backgroundColor: "#DCFCE7",
+            color: "#166534",
+            border: "1px solid #86EFAC",
+            padding: "12px 16px",
+            borderRadius: "8px",
+            marginBottom: "20px",
+            fontWeight: "600",
+          }}
+        >
+          {error}
+          
+        </div>
+      )}
+
         {/* PAGE HEADER */}
         <div style={headerStyle}>
           <h1 style={titleStyle}>
