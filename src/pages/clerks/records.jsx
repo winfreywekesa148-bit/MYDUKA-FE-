@@ -167,13 +167,6 @@ function Records() {
           </p>
         </div>
 
-        {/* ERROR MESSAGE */}
-        {error && (
-        <div role="alert" style={errorStyle}>
-          <strong>Error:</strong> {error}
-        </div>
-        )}
-
         {/* FORM */}
         <form onSubmit={submit} style={formStyle}>
 
