@@ -1192,3 +1192,7 @@ tbody tr:last-child {
 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.addadmin{
+  height: 600px;
+}
