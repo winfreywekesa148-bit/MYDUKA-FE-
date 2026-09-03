@@ -169,7 +169,7 @@ function Records() {
 
         {/* ERROR MESSAGE */}
         {error && (
-          <div role="alert" style={{
+          <div style={{
             backgroundColor: "#DCFCE7",
             color: "#166534",
             border: "1px solid #86EFAC",
@@ -178,7 +178,7 @@ function Records() {
             marginBottom: "20px",
             fontWeight: "600",
           }}>
-            <strong>Error:</strong> {error}
+            {error}
           </div>
         )}
 
