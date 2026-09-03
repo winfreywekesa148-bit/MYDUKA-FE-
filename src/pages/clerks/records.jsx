@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../config";
 import Sidebar from "../../components/sidebar";
-
-// =====================================================
-// INITIAL FORM
-// =====================================================
+import ActiveButton from "../../components/active_button";
 
 const initialForm = {
   clerk_id: "",
@@ -20,16 +15,25 @@ const initialForm = {
   payment_status: "unpaid",
 };
 
-// =====================================================
-// MAIN COMPONENT
-// =====================================================
-
 function Records() {
-  const navigate = useNavigate();
+
+  // =====================================================
+  // RECORDS
+  // =====================================================
+
+  const [records, setRecords] = useState([]);
+
+  // =====================================================
+  // FORM
+  // =====================================================
 
   const [form, setForm] = useState(initialForm);
+
+  // =====================================================
+  // ERROR
+  // =====================================================
+
   const [error, setError] = useState("");
-  const [saving, setSaving] = useState(false);
 
   // =====================================================
   // HANDLE INPUT CHANGES
@@ -38,97 +42,158 @@ function Records() {
   const change = (event) => {
     const { name, value } = event.target;
 
-    setForm((previousForm) => ({
-      ...previousForm,
+    setForm((currentForm) => ({
+      ...currentForm,
       [name]: value,
     }));
   };
 
   // =====================================================
-  // SUBMIT FORM
+  // ADD RECORD
   // =====================================================
 
-  const submit = async (event) => {
+  const addRecord = (event) => {
     event.preventDefault();
 
-    setSaving(true);
     setError("");
 
-    try {
-      // Validate Clerk ID
-      if (!form.clerk_id || Number(form.clerk_id) <= 0) {
-        throw new Error("Please enter a valid Clerk ID.");
-      }
+    // -----------------------------
+    // VALIDATION
+    // -----------------------------
 
-      // Validate Store ID
-      if (!form.store_id || Number(form.store_id) <= 0) {
-        throw new Error("Please enter a valid Store ID.");
-      }
-
-      // Validate product
-      if (!form.product_name.trim()) {
-        throw new Error("Please enter the product name.");
-      }
-
-      // Validate supplier
-      if (!form.supplier_name.trim()) {
-        throw new Error("Please enter the supplier name.");
-      }
-
-      // Prepare data for Flask
-      const recordData = {
-        clerk_id: Number(form.clerk_id),
-        store_id: Number(form.store_id),
-
-        product_name: form.product_name.trim(),
-        supplier_name: form.supplier_name.trim(),
-
-        items_received: Number(form.items_received),
-        items_in_stock: Number(form.items_in_stock),
-        items_spoilt: Number(form.items_spoilt || 0),
-
-        buying_price: Number(form.buying_price),
-        selling_price: Number(form.selling_price),
-
-        payment_status: form.payment_status,
-      };
-
-      console.log("Sending inventory record:", recordData);
-
-      // Send record to Flask
-      const response = await fetch(`${API_URL}/records`, {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify(recordData),
-      });
-
-      const data = await response.json();
-
-      console.log("Backend response:", data);
-
-      if (!response.ok) {
-        throw new Error(
-          data.error || "Unable to create the inventory record."
-        );
-      }
-
-      // Successful save
-      alert("Inventory record created successfully!");
-
-      // Go back to inventory
-      navigate("/clerk/inventory");
-
-    } catch (submitError) {
-      console.error("Inventory error:", submitError);
-
-      setError(submitError.message);
-    } finally {
-      setSaving(false);
+    if (!form.clerk_id || Number(form.clerk_id) <= 0) {
+      setError("Please enter a valid Clerk ID.");
+      return;
     }
+
+    if (!form.store_id || Number(form.store_id) <= 0) {
+      setError("Please enter a valid Store ID.");
+      return;
+    }
+
+    if (!form.product_name.trim()) {
+      setError("Please enter the product name.");
+      return;
+    }
+
+    if (!form.supplier_name.trim()) {
+      setError("Please enter the supplier name.");
+      return;
+    }
+
+    if (
+      !form.items_received ||
+      Number(form.items_received) <= 0
+    ) {
+      setError("Please enter the number of items received.");
+      return;
+    }
+
+    if (
+      form.items_in_stock === "" ||
+      Number(form.items_in_stock) < 0
+    ) {
+      setError("Please enter the number of items in stock.");
+      return;
+    }
+
+    if (
+      form.buying_price === "" ||
+      Number(form.buying_price) < 0
+    ) {
+      setError("Please enter the buying price.");
+      return;
+    }
+
+    if (
+      form.selling_price === "" ||
+      Number(form.selling_price) < 0
+    ) {
+      setError("Please enter the selling price.");
+      return;
+    }
+
+    // =====================================================
+    // CREATE NEW RECORD
+    // =====================================================
+
+    const newRecord = {
+      id: Date.now(),
+
+      clerk_id: Number(form.clerk_id),
+      store_id: Number(form.store_id),
+
+      product_name: form.product_name.trim(),
+      supplier_name: form.supplier_name.trim(),
+
+      items_received: Number(form.items_received),
+      items_in_stock: Number(form.items_in_stock),
+      items_spoilt: Number(form.items_spoilt || 0),
+
+      buying_price: Number(form.buying_price),
+      selling_price: Number(form.selling_price),
+
+      payment_status: form.payment_status,
+    };
+
+    // =====================================================
+    // ADD TO INVENTORY TABLE
+    // =====================================================
+
+    setRecords((currentRecords) => [
+      ...currentRecords,
+      newRecord,
+    ]);
+
+    // =====================================================
+    // CLEAR FORM
+    // =====================================================
+
+    setForm(initialForm);
+  };
+
+  // =====================================================
+  // DELETE RECORD
+  // =====================================================
+
+  const deleteRecord = (id) => {
+    setRecords((currentRecords) =>
+      currentRecords.filter(
+        (record) => record.id !== id
+      )
+    );
+  };
+
+  // =====================================================
+  // CHANGE PAYMENT STATUS
+  // =====================================================
+
+  const togglePaymentStatus = (id) => {
+    setRecords((currentRecords) =>
+      currentRecords.map((record) => {
+
+        if (record.id !== id) {
+          return record;
+        }
+
+        let newStatus;
+
+        if (record.payment_status === "unpaid") {
+          newStatus = "partial";
+        } else if (
+          record.payment_status === "partial"
+        ) {
+          newStatus = "paid";
+        } else {
+          newStatus = "unpaid";
+        }
+
+        return {
+          ...record,
+          payment_status: newStatus,
+        };
+      })
+    );
   };
 
   // =====================================================
@@ -139,278 +204,327 @@ function Records() {
     <div className="admin-dashboard">
 
       {/* SIDEBAR */}
+
       <Sidebar role="clerk" />
 
-      <main style={pageStyle}>
+      <main
+        style={{
+          width: "100%",
+          padding: "30px",
+          boxSizing: "border-box",
+        }}
+      >
 
-        {/* BACK BUTTON */}
-        <button
-          type="button"
-          style={backButton}
-          onClick={() => navigate("/clerk/dashboard")}
-        >
-          ← Back to Dashboard
-        </button>
-          
-        </div>
-      )}
+        {/* HEADER */}
 
-        {/* PAGE HEADER */}
-        <div style={headerStyle}>
-          <h1 style={titleStyle}>
-            Record Inventory
-          </h1>
+        <h1 className="stadmin">
+          Inventory Records
+        </h1>
 
-          <p style={subtitleStyle}>
-            Record the products received, stock available,
-            supplier information and payment status.
-          </p>
-        </div>
+        <p>
+          Add and manage your store inventory.
+        </p>
 
-        {/* FORM */}
-        <form onSubmit={submit} style={formStyle}>
+        {/* ERROR MESSAGE */}
 
-          {/* ===============================
-              CLERK ID
-          =============================== */}
-
-          <Field
-            label="Clerk ID"
-            name="clerk_id"
-            value={form.clerk_id}
-            onChange={change}
-            min="1"
-            placeholder="e.g. 1"
-          />
-
-          {/* ===============================
-              STORE ID
-          =============================== */}
-
-          <Field
-            label="Store ID"
-            name="store_id"
-            value={form.store_id}
-            onChange={change}
-            min="1"
-            placeholder="e.g. 1"
-          />
-
-          {/* ===============================
-              PRODUCT
-          =============================== */}
-
-          <TextField
-            label="Product Name"
-            name="product_name"
-            value={form.product_name}
-            onChange={change}
-            placeholder="e.g. Pishori Rice"
-          />
-
-          {/* ===============================
-              SUPPLIER
-          =============================== */}
-
-          <TextField
-            label="Supplier Name"
-            name="supplier_name"
-            value={form.supplier_name}
-            onChange={change}
-            placeholder="e.g. Upendo Suppliers"
-          />
-
-          {/* ===============================
-              ITEMS RECEIVED
-          =============================== */}
-
-          <Field
-            label="Items Received"
-            name="items_received"
-            value={form.items_received}
-            onChange={change}
-            min="1"
-            placeholder="e.g. 20"
-          />
-
-          {/* ===============================
-              ITEMS IN STOCK
-          =============================== */}
-
-          <Field
-            label="Items Now in Stock"
-            name="items_in_stock"
-            value={form.items_in_stock}
-            onChange={change}
-            min="0"
-            placeholder="e.g. 20"
-          />
-
-          {/* ===============================
-              SPOILT ITEMS
-          =============================== */}
-
-          <Field
-            label="Spoilt Items"
-            name="items_spoilt"
-            value={form.items_spoilt}
-            onChange={change}
-            min="0"
-            required={false}
-            placeholder="e.g. 0"
-          />
-
-          {/* ===============================
-              BUYING PRICE
-          =============================== */}
-
-          <Field
-            label="Buying Price (KSh)"
-            name="buying_price"
-            value={form.buying_price}
-            onChange={change}
-            min="0"
-            step="0.01"
-            placeholder="e.g. 150"
-          />
-
-          {/* ===============================
-              SELLING PRICE
-          =============================== */}
-
-          <Field
-            label="Selling Price (KSh)"
-            name="selling_price"
-            value={form.selling_price}
-            onChange={change}
-            min="0"
-            step="0.01"
-            placeholder="e.g. 200"
-          />
-
-          {/* ===============================
-              PAYMENT STATUS
-          =============================== */}
-
-          <div style={inputGroupStyle}>
-
-            <label style={labelStyle}>
-              Payment Status
-            </label>
-
-            <select
-              name="payment_status"
-              value={form.payment_status}
-              onChange={change}
-              style={inputStyle}
-            >
-              <option value="unpaid">
-                Unpaid
-              </option>
-
-              <option value="partial">
-                Partial
-              </option>
-
-              <option value="paid">
-                Paid
-              </option>
-            </select>
-
-          </div>
-
-          {/* ===============================
-              SUBMIT BUTTON
-          =============================== */}
-
-          <button
-            type="submit"
-            disabled={saving}
+        {error && (
+          <div
             style={{
-              ...primaryButton,
-              opacity: saving ? 0.6 : 1,
-              cursor: saving
-                ? "not-allowed"
-                : "pointer",
+              backgroundColor: "#FEF2F2",
+              color: "#B91C1C",
+              border: "1px solid #FECACA",
+              padding: "12px 15px",
+              borderRadius: "8px",
+              marginBottom: "20px",
             }}
           >
-            {saving
-              ? "Saving..."
-              : "Save Inventory Record"}
+            {error}
+          </div>
+        )}
+
+        {/* =================================================
+            ADD RECORD FORM
+        ================================================= */}
+
+        <form
+          onSubmit={addRecord}
+          className="addadmin"
+        >
+
+          <h2>Add Inventory Record</h2>
+
+          {/* CLERK ID */}
+
+          <input
+            type="number"
+            name="clerk_id"
+            placeholder="Clerk ID"
+            min="1"
+            value={form.clerk_id}
+            onChange={change}
+          />
+
+          {/* STORE ID */}
+
+          <input
+            type="number"
+            name="store_id"
+            placeholder="Store ID"
+            min="1"
+            value={form.store_id}
+            onChange={change}
+          />
+
+          {/* PRODUCT */}
+
+          <input
+            type="text"
+            name="product_name"
+            placeholder="Product name"
+            value={form.product_name}
+            onChange={change}
+          />
+
+          {/* SUPPLIER */}
+
+          <input
+            type="text"
+            name="supplier_name"
+            placeholder="Supplier name"
+            value={form.supplier_name}
+            onChange={change}
+          />
+
+          {/* ITEMS RECEIVED */}
+
+          <input
+            type="number"
+            name="items_received"
+            placeholder="Items received"
+            min="1"
+            value={form.items_received}
+            onChange={change}
+          />
+
+          {/* ITEMS IN STOCK */}
+
+          <input
+            type="number"
+            name="items_in_stock"
+            placeholder="Items now in stock"
+            min="0"
+            value={form.items_in_stock}
+            onChange={change}
+          />
+
+          {/* SPOILT */}
+
+          <input
+            type="number"
+            name="items_spoilt"
+            placeholder="Spoilt items"
+            min="0"
+            value={form.items_spoilt}
+            onChange={change}
+          />
+
+          {/* BUYING PRICE */}
+
+          <input
+            type="number"
+            name="buying_price"
+            placeholder="Buying price (KSh)"
+            min="0"
+            step="0.01"
+            value={form.buying_price}
+            onChange={change}
+          />
+
+          {/* SELLING PRICE */}
+
+          <input
+            type="number"
+            name="selling_price"
+            placeholder="Selling price (KSh)"
+            min="0"
+            step="0.01"
+            value={form.selling_price}
+            onChange={change}
+          />
+
+          {/* PAYMENT STATUS */}
+
+          <select
+            name="payment_status"
+            value={form.payment_status}
+            onChange={change}
+          >
+
+            <option value="unpaid">
+              Unpaid
+            </option>
+
+            <option value="partial">
+              Partial
+            </option>
+
+            <option value="paid">
+              Paid
+            </option>
+
+          </select>
+
+          {/* ADD BUTTON */}
+
+          <button
+            className="buttons"
+            type="submit"
+          >
+            Add Inventory Record
           </button>
 
         </form>
 
+        {/* =================================================
+            INVENTORY TABLE
+        ================================================= */}
+
+        <h2 style={{ marginTop: "40px" }}>
+          Inventory
+        </h2>
+
+        {records.length === 0 ? (
+
+          <p>
+            No inventory records added yet.
+          </p>
+
+        ) : (
+
+          <div
+            style={{
+              overflowX: "auto",
+            }}
+          >
+
+            <table className="table-container">
+
+              <thead>
+
+                <tr>
+
+                  <th>Product</th>
+
+                  <th>Supplier</th>
+
+                  <th>Received</th>
+
+                  <th>In Stock</th>
+
+                  <th>Spoilt</th>
+
+                  <th>Buying Price</th>
+
+                  <th>Selling Price</th>
+
+                  <th>Payment</th>
+
+                  <th>Actions</th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {records.map((record) => (
+
+                  <tr key={record.id}>
+
+                    <td>
+                      {record.product_name}
+                    </td>
+
+                    <td>
+                      {record.supplier_name}
+                    </td>
+
+                    <td>
+                      {record.items_received}
+                    </td>
+
+                    <td>
+                      {record.items_in_stock}
+                    </td>
+
+                    <td>
+                      {record.items_spoilt}
+                    </td>
+
+                    <td>
+                      KSh {record.buying_price}
+                    </td>
+
+                    <td>
+                      KSh {record.selling_price}
+                    </td>
+
+                    <td>
+
+                      <ActiveButton
+                        active={
+                          record.payment_status ===
+                          "paid"
+                        }
+                        onClick={() =>
+                          togglePaymentStatus(
+                            record.id
+                          )
+                        }
+                      />
+
+                      <span
+                        style={{
+                          marginLeft: "8px",
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        {record.payment_status}
+                      </span>
+
+                    </td>
+
+                    <td>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          deleteRecord(record.id)
+                        }
+                      >
+                        Delete
+                      </button>
+
+                    </td>
+
+                  </tr>
+
+                ))}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        )}
+
       </main>
-    </div>
-  );
-}
-
-// =====================================================
-// NUMBER FIELD
-// =====================================================
-
-function Field({
-  label,
-  name,
-  value,
-  onChange,
-  required = true,
-  ...props
-}) {
-  return (
-    <div style={inputGroupStyle}>
-
-      <label style={labelStyle}>
-        {label}
-      </label>
-
-      <input
-        type="number"
-        name={name}
-        value={value}
-        onChange={onChange}
-        required={required}
-        style={inputStyle}
-        {...props}
-      />
 
     </div>
   );
 }
 
-// =====================================================
-// TEXT FIELD
-// =====================================================
-
-function TextField({
-  label,
-  name,
-  value,
-  onChange,
-  placeholder,
-  required = true,
-}) {
-  return (
-    <div style={inputGroupStyle}>
-
-      <label style={labelStyle}>
-        {label}
-      </label>
-
-      <input
-        type="text"
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        required={required}
-        style={inputStyle}
-      />
-
-    </div>
-  );
-}
 
 // =====================================================
 // STYLES
