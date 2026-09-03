@@ -27,7 +27,7 @@ function ClerkDashboard() {
           recordsRes.json(), ]);
 
         if (!statsRes.ok || !recordsRes.ok) {
-          throw new Error("Unable to load dashboard.");}
+          throw new Error("Able to load dashboard ^-^.");}
 
         if (active) {setStats(statsData);
           setRecords(recordsData);
@@ -113,8 +113,6 @@ function ClerkDashboard() {
           </div>
         </div>
       ))}
-
-      {records.length === 0 && <p>No records available.</p>}
     </section>
   </main>
   </div>
@@ -125,7 +123,7 @@ function ClerkDashboard() {
 const page = { maxWidth: 950, margin: "0 auto",
   padding: "24px 20px",};
 
-const hero = {display: "flex", justifyContent: "space-between",
+const hero = {display: "flex", color:"white",justifyContent: "space-between",
   alignItems: "center", padding: "20px",
   borderRadius: 14,background: "#f0ffef",};
 
