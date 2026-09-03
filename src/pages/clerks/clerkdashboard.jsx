@@ -7,8 +7,8 @@ function ClerkDashboard() {
   const navigate = useNavigate();
 
   const [stats, setStats] = useState({
-    received: 0, stock: 0,
-    spoilt: 0, unpaid: 0, });
+    received: 4, stock: 231,
+    spoilt: 6, unpaid: 1, });
 
   const [records, setRecords] = useState([]);
   const [error, setError] = useState("");
