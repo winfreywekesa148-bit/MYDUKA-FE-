@@ -1,184 +1,1459 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+/* =========================================================
+   MYDUKA GLOBAL DASHBOARD DESIGN SYSTEM
+   ========================================================= */
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+:root {
+  --myduka-bg: #f4f7f5;
+  --myduka-card: #ffffff;
+  --myduka-primary: #16a34a;
+  --myduka-primary-dark: #15803d;
+  --myduka-primary-light: #ecfdf3;
+
+  --myduka-text: #17251d;
+  --myduka-text-light: #64748b;
+
+  --myduka-border: #e2e8e5;
+
+  --myduka-danger: #dc2626;
+  --myduka-danger-light: #fef2f2;
+
+  --myduka-warning: #d97706;
+  --myduka-warning-light: #fffbeb;
+
+  --myduka-blue: #2563eb;
+  --myduka-blue-light: #eff6ff;
+
+  --myduka-radius: 14px;
+
+  --myduka-shadow:
+    0 4px 15px rgba(15, 23, 42, 0.06);
+
+  --myduka-shadow-hover:
+    0 10px 25px rgba(15, 23, 42, 0.10);
 }
 
-.hero {
-  position: relative;
 
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
+/* =========================================================
+   GLOBAL
+   ========================================================= */
 
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+* {
+  box-sizing: border-box;
 }
 
-#center {
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: var(--myduka-bg);
+  color: var(--myduka-text);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+
+/* =========================================================
+   MAIN DASHBOARD LAYOUT
+   ========================================================= */
+
+.admin-dashboard {
+  min-height: 100vh;
+  display: flex;
+  background: var(--myduka-bg);
+}
+
+.admin-dashboard main {
+  flex: 1;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.app-sidebar {
+  width: 250px;
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
 
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  padding: 28px 16px;
+
+  background: #ffffff;
+
+  border-right: 1px solid var(--myduka-border);
+
+  position: sticky;
+  top: 0;
+
+  box-shadow:
+    4px 0 18px rgba(15, 23, 42, 0.03);
 }
 
-#next-steps {
+.sidebar-brand {
+  padding: 0 14px;
+
+  font-size: 25px;
+  font-weight: 800;
+
+  color: var(--myduka-text);
+
+  margin-bottom: 6px;
+}
+
+.sidebar-brand span {
+  color: var(--myduka-primary);
+}
+
+.sidebar-role {
+  padding: 0 14px;
+  margin-bottom: 28px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  color: var(--myduka-text-light);
+}
+
+.sidebar-nav {
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+  flex-direction: column;
+  gap: 6px;
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
+.sidebar-link {
   width: 100%;
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: #64748b;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-align: left;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background: #f0fdf4;
+  color: var(--myduka-primary);
+  transform: translateX(2px);
+}
+
+.sidebar-link.active {
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
+}
+
+.sidebar-icon {
+  width: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+}
+
+.sidebar-logout {
+  margin-top: auto;
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #fef2f2;
+
+  color: #dc2626;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.sidebar-logout:hover {
+  background: #fee2e2;
+}
+
+
+/* =========================================================
+   GENERAL PAGE CONTAINER
+   ========================================================= */
+
+.dashboard-page {
+  width: 100%;
+  max-width: 1400px;
+
+  margin: 0 auto;
+
+  padding: 32px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.page-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  font-size: 30px;
+  font-weight: 800;
+
+  color: var(--myduka-text);
+}
+
+.page-header p {
+  margin: 6px 0 0;
+
+  color: var(--myduka-text-light);
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: none;
+  border-radius: 9px;
+
+  padding: 11px 17px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--myduka-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--myduka-primary-dark);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 15px rgba(22, 163, 74, 0.2);
+}
+
+.btn-secondary {
+  background: white;
+
+  color: var(--myduka-text);
+
+  border: 1px solid var(--myduka-border);
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+.btn-blue {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-blue:hover {
+  background: #1d4ed8;
+}
+
+
+/* =========================================================
+   DASHBOARD CARDS
+   ========================================================= */
+
+.dashboard-card {
+  background: white;
+
+  border: 1px solid var(--myduka-border);
+
+  border-radius: var(--myduka-radius);
+
+  box-shadow: var(--myduka-shadow);
+
+  transition: all 0.2s ease;
+}
+
+.dashboard-card:hover {
+  box-shadow: var(--myduka-shadow-hover);
+}
+
+
+/* =========================================================
+   STATISTICS
+   ========================================================= */
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  padding: 22px;
+
+  background: white;
+
+  border: 1px solid var(--myduka-border);
+
+  border-radius: var(--myduka-radius);
+
+  box-shadow: var(--myduka-shadow);
+
+  transition: 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: var(--myduka-shadow-hover);
+}
+
+.stat-card-label {
+  color: var(--myduka-text-light);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stat-card-value {
+  margin-top: 6px;
+
+  font-size: 28px;
+  font-weight: 800;
+
+  color: var(--myduka-text);
+}
+
+.stat-card-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 14px;
+
+  border-radius: 11px;
+
+  background: var(--myduka-primary-light);
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+.form-card {
+  padding: 28px;
+
+  background: white;
+
+  border: 1px solid var(--myduka-border);
+
+  border-radius: 16px;
+
+  box-shadow: var(--myduka-shadow);
+}
+
+.form-card h2 {
+  margin: 0 0 22px;
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #374151;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  padding: 12px 13px;
+
+  border: 1px solid #d8e0dc;
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background: white;
+
+  color: var(--myduka-text);
+
+  font-size: 14px;
+
+  transition: 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--myduka-primary);
+
+  box-shadow:
+    0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
+
+.error-message {
+  padding: 13px 16px;
+
+  margin-bottom: 20px;
+
+  border:
+    1px solid #fecaca;
+
+  border-radius: 10px;
+
+  background: #fef2f2;
+
+  color: #b91c1c;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.table-card {
+  overflow: hidden;
+
+  background: white;
+
+  border:
+    1px solid var(--myduka-border);
+
+  border-radius: 14px;
+
+  box-shadow: var(--myduka-shadow);
+}
+
+.table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.modern-table {
+  width: 100%;
+
+  min-width: 900px;
+
+  border-collapse: collapse;
+}
+
+.modern-table thead {
+  background: #f0fdf4;
+}
+
+.modern-table th {
+  padding: 14px 16px;
+
+  text-align: left;
+
+  color: #166534;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+
+  border-bottom:
+    1px solid #bbf7d0;
+}
+
+.modern-table td {
+  padding: 15px 16px;
+
+  color: #374151;
+
+  font-size: 14px;
+
+  border-bottom:
+    1px solid #edf1ee;
+}
+
+.modern-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.modern-table tbody tr:hover {
+  background: #f8fbf9;
+}
+
+.modern-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+.status {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.status-paid,
+.status-approved,
+.status-active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pending,
+.status-partial {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-unpaid,
+.status-declined,
+.status-inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.action-buttons {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.action-btn {
+  border: none;
+
+  border-radius: 7px;
+
+  padding: 7px 11px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.action-edit {
+  background: #eff6ff;
+
+  color: #2563eb;
+}
+
+.action-edit:hover {
+  background: #dbeafe;
+}
+
+.action-delete {
+  background: #fef2f2;
+
+  color: #dc2626;
+}
+
+.action-delete:hover {
+  background: #fee2e2;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.myduka-searchbar {
+  width: 100%;
+
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 14px;
+
+  background: white;
+
+  border:
+    1px solid #d9e1ec;
+
+  border-radius: 10px;
+
+  transition: 0.2s ease;
+}
+
+.myduka-searchbar:focus-within {
+  border-color: var(--myduka-primary);
+
+  box-shadow:
+    0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.myduka-searchbar-icon {
+  flex-shrink: 0;
+
+  color: #7b8ca5;
+}
+
+.myduka-searchbar input {
+  width: 100%;
+
+  min-width: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: var(--myduka-text);
+
+  font-size: 14px;
+}
+
+.myduka-searchbar-clear {
+  border: none;
+
+  background: transparent;
+
+  color: #7b8ca5;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   CLERK DASHBOARD
+   ========================================================= */
+
+.clerk-dashboard {
+  min-height: 100vh;
+
+  display: flex;
+
+  background: var(--myduka-bg);
+}
+
+.clerk-main {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 32px;
+
+  max-width: 1450px;
+
+  margin: 0 auto;
+}
+
+.clerk-hero {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 24px;
+
+  padding: 30px;
+
+  margin-bottom: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f0fdf4 100%
+    );
+
+  border:
+    1px solid #dcefe1;
+
+  border-radius: 18px;
+
+  box-shadow: var(--myduka-shadow);
+}
+
+.clerk-label {
+  margin: 0 0 7px;
+
+  color: var(--myduka-primary);
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.13em;
+}
+
+.clerk-hero h1 {
+  margin: 0;
+
+  font-size: 31px;
+
+  font-weight: 800;
+
+  color: var(--myduka-text);
+}
+
+.clerk-subtitle {
+  margin: 8px 0 0;
+
+  color: var(--myduka-text-light);
+
+  font-size: 14px;
+}
+
+.clerk-primary-btn {
+  border: none;
+
+  border-radius: 9px;
+
+  padding: 12px 18px;
+
+  background: var(--myduka-primary);
+
+  color: white;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.clerk-primary-btn:hover {
+  background: var(--myduka-primary-dark);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CLERK STATISTICS
+   ========================================================= */
+
+.clerk-stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 25px;
+}
+
+.clerk-stat-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 20px;
+
+  background: white;
+
+  border:
+    1px solid var(--myduka-border);
+
+  border-radius: 14px;
+
+  box-shadow: var(--myduka-shadow);
+
+  transition: 0.2s ease;
+}
+
+.clerk-stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow: var(--myduka-shadow-hover);
+}
+
+.clerk-stat-icon {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: var(--myduka-primary-light);
+
+  font-size: 20px;
+}
+
+.clerk-stat-card span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: var(--myduka-text-light);
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.clerk-stat-card strong {
+  display: block;
+
+  font-size: 23px;
+
+  font-weight: 800;
+
+  color: var(--myduka-text);
+}
+
+
+/* =========================================================
+   CLERK ACTIONS
+   ========================================================= */
+
+.clerk-actions {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 28px;
+}
+
+.clerk-action {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  width: 100%;
+
+  padding: 18px;
+
+  border:
+    1px solid var(--myduka-border);
+
+  border-radius: 14px;
+
+  background: white;
+
+  color: var(--myduka-text);
+
+  text-align: left;
+
+  transition: 0.2s ease;
+}
+
+.clerk-action:hover {
+  transform: translateY(-2px);
+
+  border-color: #b7dfc2;
+
+  box-shadow: var(--myduka-shadow-hover);
+}
+
+.clerk-action.primary {
+  background: var(--myduka-primary);
+
+  border-color: var(--myduka-primary);
+
+  color: white;
+}
+
+.clerk-action-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #ecfdf3;
+
+  font-size: 18px;
+}
+
+.clerk-action.primary .clerk-action-icon {
+  background: rgba(255,255,255,0.18);
+}
+
+
+/* =========================================================
+   RECORDS
+   ========================================================= */
+
+.clerk-records {
+  padding: 26px;
+
+  background: white;
+
+  border:
+    1px solid var(--myduka-border);
+
+  border-radius: 16px;
+
+  box-shadow: var(--myduka-shadow);
+}
+
+.clerk-section-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.clerk-section-header h2 {
+  margin: 0;
+
+  font-size: 20px;
+
+  font-weight: 800;
+}
+
+.clerk-view-all {
+  border: none;
+
+  background: transparent;
+
+  color: var(--myduka-primary);
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+.clerk-record-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 17px 4px;
+
+  border-bottom:
+    1px solid #edf1ee;
+}
+
+.clerk-record-row:last-child {
+  border-bottom: none;
+}
+
+.clerk-record-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  min-width: 0;
+}
+
+.clerk-product-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #f0fdf4;
+
+  font-size: 18px;
+}
+
+.clerk-record-info strong {
+  display: block;
+
+  font-size: 14px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+.clerk-record-info p {
+  margin: 3px 0 0;
+
+  color: var(--myduka-text-light);
+
+  font-size: 12px;
+}
+
+.clerk-record-right {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+.clerk-stock {
+  text-align: right;
+}
+
+.clerk-stock strong {
+  display: block;
+
+  font-size: 14px;
+}
+
+.clerk-stock span {
+  color: var(--myduka-text-light);
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   SUPPLY REQUESTS
+   ========================================================= */
+
+.supply-page {
+  width: 100%;
+
+  padding: 32px;
+
+  max-width: 1100px;
+
+  margin: 0 auto;
+}
+
+.supply-header {
+  margin-bottom: 25px;
+}
+
+.supply-header h1 {
+  margin: 0;
+
+  font-size: 30px;
+
+  font-weight: 800;
+}
+
+.supply-header p {
+  margin-top: 7px;
+
+  color: var(--myduka-text-light);
+}
+
+.supply-form {
+  padding: 25px;
+
+  background: white;
+
+  border:
+    1px solid var(--myduka-border);
+
+  border-radius: 15px;
+
+  box-shadow: var(--myduka-shadow);
+}
+
+.supply-form-group {
+  margin-bottom: 18px;
+}
+
+.supply-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+.supply-form-group input {
+  width: 100%;
+
+  padding: 12px;
+
+  border:
+    1px solid #d8e0dc;
+
+  border-radius: 9px;
+
+  outline: none;
+}
+
+.supply-form-group input:focus {
+  border-color: var(--myduka-primary);
+
+  box-shadow:
+    0 0 0 3px rgba(22,163,74,0.1);
+}
+
+.request-card {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 18px;
+
+  margin-bottom: 12px;
+
+  background: white;
+
+  border:
+    1px solid var(--myduka-border);
+
+  border-radius: 12px;
+
+  box-shadow: var(--myduka-shadow);
+}
+
+.request-card h3 {
+  margin: 0;
+
+  font-size: 16px;
+}
+
+.request-card p {
+  margin: 4px 0 0;
+
+  color: var(--myduka-text-light);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   CHARTS
+   ========================================================= */
+
+.chart-page {
+  padding: 32px;
+
+  max-width: 1400px;
+
+  margin: 0 auto;
+}
+
+.chart-card {
+  padding: 25px;
+
+  margin-bottom: 24px;
+
+  background: white;
+
+  border:
+    1px solid var(--myduka-border);
+
+  border-radius: 16px;
+
+  box-shadow: var(--myduka-shadow);
+}
+
+.chart-card h2 {
+  margin: 0 0 20px;
+
+  font-size: 19px;
+
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .clerk-stats,
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+  .clerk-actions {
+    grid-template-columns: 1fr;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+
 }
+
+
+@media (max-width: 800px) {
+
+  .app-sidebar {
+    width: 210px;
+  }
+
+  .dashboard-page,
+  .clerk-main,
+  .supply-page,
+  .chart-page {
+    padding: 22px;
+  }
+
+  .clerk-hero {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full {
+    grid-column: auto;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .admin-dashboard {
+    display: block;
+  }
+
+  .app-sidebar {
+    width: 100%;
+    min-height: auto;
+
+    position: relative;
+
+    padding: 16px;
+  }
+
+  .sidebar-nav {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .sidebar-logout {
+    margin-top: 12px;
+  }
+
+  .clerk-stats,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .page-header .btn {
+    width: 100%;
+  }
+
+  .clerk-hero h1 {
+    font-size: 25px;
+  }
+
+  .clerk-record-row {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .clerk-record-right {
+    width: 100%;
+
+    justify-content: space-between;
+  }
+
+  .request-card {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+}
+
+/* =========================================================
+   INVENTORY PAGE
+   ========================================================= */
+
+.inventory-page {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+
+/* =========================================================
+   INVENTORY TOP BAR
+   ========================================================= */
+
+.inventory-topba
